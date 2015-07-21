@@ -1,0 +1,15 @@
+[package]
+name = "RSA"
+version = "0.1.0"
+authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
+
+[[bin]]
+
+name = "chipher"
+path = "src/main.rs"
+
+[dependencies]
+
+primes = "*"
+num = "*"
+clap = "*"
