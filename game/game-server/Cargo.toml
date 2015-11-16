@@ -1,9 +1,0 @@
-[package]
-name = "game-server"
-version = "0.1.0"
-authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
-
-[[bin]]
-
-name = "server"
-path = "src/main.rs"
