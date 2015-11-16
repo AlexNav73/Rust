@@ -1,0 +1,13 @@
+[package]
+name = "COS_Lab2"
+version = "0.1.0"
+authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
+
+[lib]
+path = "src/rsignal/lib.rs"
+name = "rsignal"
+crate-type = ["dylib", "rlib"]
+
+[[bin]]
+name = "main"
+path = "src/main.rs"

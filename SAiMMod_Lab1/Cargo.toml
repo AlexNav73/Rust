@@ -1,0 +1,16 @@
+[package]
+name = "SAiMMod_Lab1"
+version = "0.1.0"
+authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
+
+[lib]
+name = "rsgen"
+crate_type = ["dylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "rsgen"
+path = "src/main.rs"
+
+[dependencies]
+rand = "*"

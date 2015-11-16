@@ -1,0 +1,11 @@
+[package]
+name = "AimGame"
+version = "0.8.0"
+authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
+
+[dependencies]
+rand = "*"
+piston = "*"
+piston_window = "*"
+piston2d-graphics = "*"
+piston2d-opengl_graphics = "*"

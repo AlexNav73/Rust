@@ -1,0 +1,13 @@
+[package]
+name = "libs2"
+version = "0.1.0"
+authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
+
+[lib]
+name = "dlib"
+path = "src/lib.rs"
+crate-type = ["dylib"]
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
