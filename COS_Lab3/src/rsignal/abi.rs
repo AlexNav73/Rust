@@ -17,14 +17,35 @@ pub extern "C" fn DeleteChart(ptr: *mut Chart) {
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "C" fn ShowPolyChart(ptr: *mut Chart, callback: fn(f32)) {
+pub extern "C" fn ShowTestSignal(ptr: *mut Chart, callback: fn(f32)) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.show_test_signal(callback);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn ShowRecoveredSignal(ptr: *mut Chart, callback: fn(f32)) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.show_recovered_signal(callback);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn ShowPolySignal(ptr: *mut Chart, callback: fn(f32)) {
     let c: &mut Chart = unsafe { transmute(ptr) };
     c.show_poly_signal(callback);
 }
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "C" fn ShowSpectorChart(ptr: *mut Chart, callback: fn(f32)) {
+pub extern "C" fn ShowRecoveredPolySignal(ptr: *mut Chart, callback: fn(f32)) {
     let c: &mut Chart = unsafe { transmute(ptr) };
-    c.show_spectors(callback);
+    c.show_recovered_poly_signal(callback);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn ShowRecoveredPolySignalWithoutFi(ptr: *mut Chart, callback: fn(f32)) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.show_recovered_poly_signal_without_fi(callback);
 }

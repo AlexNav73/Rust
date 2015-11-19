@@ -72,6 +72,9 @@ nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("n", "Toggle")
 xnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("x", "Comment")
 nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
 nnoremap <F5> :GundoToggle
+cmap W w
+cmap mb make build
+cmap wA wa
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
@@ -94,6 +97,7 @@ set splitright
 set tabline=%!airline#extensions#tabline#get()
 set tabstop=3
 set wildignore=*\\tmp\\*,*.swp,*.zip,*.exe,*.suo,*.sln,*.csproj,*.pdb,*.dll,*.cache
+set window=48
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -102,14 +106,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 src/main.rs
-badd +12 src/rsignal/signal.rs
+badd +6 src/main.rs
+badd +30 src/rsignal/signal.rs
 badd +8 src/rsignal/lib.rs
 badd +1 src/rsignal/graph.rs
 badd +1 chart.rs
-badd +32 src/rsignal/chart.rs
+badd +93 src/rsignal/chart.rs
 badd +1 Cargo.toml
-badd +3 src/rsignal/abi.rs
+badd +23 src/rsignal/abi.rs
 argglobal
 silent! argdel *
 argadd src/main.rs
@@ -243,25 +247,22 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-12,12fold
-12,19fold
-12,19fold
-21,25fold
-27,35fold
-12
+14,14fold
+14,27fold
+14,27fold
+29,33fold
+14
 normal! zo
-12
+14
 normal! zo
-12
+14
 normal! zo
-27
-normal! zo
-let s:l = 51 - ((33 * winheight(0) + 23) / 46)
+let s:l = 48 - ((0 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-51
-normal! 018|
+48
+normal! 0
 wincmd w
 argglobal
 edit src/rsignal/signal.rs
@@ -383,13 +384,14 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 20 - ((19 * winheight(0) + 23) / 46)
+let s:l = 3 - ((2 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-20
-normal! 05|
+3
+normal! 0
 wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
 exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
 tabedit src/rsignal/abi.rs
@@ -516,278 +518,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 29 - ((28 * winheight(0) + 23) / 46)
+let s:l = 4 - ((0 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-29
-normal! 05|
-tabedit src/main.rs
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-wincmd t
-set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
-exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
-argglobal
-nnoremap <buffer> <D-R> :RustRun! =join(b:rust_last_rustc_args)erust#AppendCmdLine(' -- ' . join(b:rust_last_args))
-nnoremap <buffer> <silent> <D-r> :RustRun
-onoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
-xnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
-nnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
-onoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
-xnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
-nnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal backupcopy=
-setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},!^F,o,O,0[,0]
-setlocal cinoptions=L0,(0,Ws,J1,j1
-setlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern
-setlocal colorcolumn=
-setlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...
-setlocal expandtab
-if &filetype != 'rust'
-setlocal filetype=rust
-endif
-setlocal fixendofline
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croqnlj
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
-setlocal include=
-setlocal includeexpr=substitute(v:fname,'::','/','g')
-setlocal indentexpr=GetRustIndent(v:lnum)
-setlocal indentkeys=0{,0},!^F,o,O,0[,0]
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal lispwords=
-setlocal nolist
-setlocal makeprg=cargo\ $*
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-set relativenumber
-setlocal relativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=4
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=%!airline#statusline(1)
-setlocal suffixesadd=.rs
-setlocal swapfile
-setlocal synmaxcol=3000
-if &syntax != 'rust'
-setlocal syntax=rust
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=99
-setlocal thesaurus=
-setlocal noundofile
-setlocal undolevels=-123456
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 13 - ((12 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-13
-normal! 05|
-wincmd w
-argglobal
-edit src/rsignal/chart.rs
-nnoremap <buffer> <D-R> :RustRun! =join(b:rust_last_rustc_args)erust#AppendCmdLine(' -- ' . join(b:rust_last_args))
-nnoremap <buffer> <silent> <D-r> :RustRun
-onoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
-xnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
-nnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
-onoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
-xnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
-nnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal backupcopy=
-setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},!^F,o,O,0[,0]
-setlocal cinoptions=L0,(0,Ws,J1,j1
-setlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern
-setlocal colorcolumn=
-setlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...
-setlocal expandtab
-if &filetype != 'rust'
-setlocal filetype=rust
-endif
-setlocal fixendofline
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croqnlj
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=0
-setlocal include=
-setlocal includeexpr=substitute(v:fname,'::','/','g')
-setlocal indentexpr=GetRustIndent(v:lnum)
-setlocal indentkeys=0{,0},!^F,o,O,0[,0]
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal lispwords=
-setlocal nolist
-setlocal makeprg=cargo\ $*
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-set relativenumber
-setlocal relativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=4
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=%!airline#statusline(2)
-setlocal suffixesadd=.rs
-setlocal swapfile
-setlocal synmaxcol=3000
-if &syntax != 'rust'
-setlocal syntax=rust
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=99
-setlocal thesaurus=
-setlocal noundofile
-setlocal undolevels=-123456
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 26 - ((9 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-26
+4
 normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
-exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
