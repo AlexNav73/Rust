@@ -10,5 +10,4 @@ fn print(y: f32) {
 
 fn main() {
     //let mut c = Chart::new();
-    //c.show_aj_spectors(print);
 }
