@@ -2,8 +2,8 @@
 use ::signal::*;
 use ::rand::Rng;
 
-//pub const APS: [u8; 7] = [ 1, 3, 4, 10, 11, 14, 17];
-const APS: [u8; 7] = [ 1, 3, 5, 8, 10, 12, 16];
+pub const APS: [u8; 7] = [ 1, 3, 4, 10, 11, 14, 17];
+//const APS: [u8; 7] = [ 1, 3, 5, 8, 10, 12, 16];
 const FIS: [f64; 6] = [PI / 6.0, PI / 4.0, PI / 3.0, PI / 2.0, 3.0 * PI / 4.0, PI];
 
 pub struct Chart {
@@ -40,8 +40,8 @@ impl Chart {
 
     fn emit_test_signal(&mut self) {
         for i in 0..N {
-            //self.test_signal[i] = signal(20.0, 0.0, i as f64, 10.0);
-            self.test_signal[i] = signal(10.0, 0.0, i as f64, 1.0);
+            self.test_signal[i] = signal(20.0, 0.0, i as f64, 10.0);
+            //self.test_signal[i] = signal(10.0, 0.0, i as f64, 1.0);
         }
     }
 
@@ -54,7 +54,7 @@ impl Chart {
                     APS[self.rand.gen::<usize>() % 7] as f64,
                     fi,
                     i as f64,
-                    j as f64);
+                    1.0);
             }
             self.poly_signal[i] = sum;
         }

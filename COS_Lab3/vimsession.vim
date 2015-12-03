@@ -78,6 +78,10 @@ inoremap OO O
 cmap W w
 cmap mb make build
 cmap wA wa
+iabbr prop public TYPE NAME { get; set; }FT
+iabbr cons Console.WriteLine();hi
+iabbr for for (int i = a; i < a; i++){}kkfah
+iabbr ctor public ?classwye''A0(){}ko
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
@@ -92,15 +96,14 @@ set laststatus=2
 set matchpairs=(:),{:},[:],<:>
 set ruler
 set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/rust.vim,~/.vim/bundle/nerdtree,~/.vim/bundle/nerdcommenter,~/.vim/bundle/gundo.vim,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/ctrlp.vim,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,~/.vim/after,~/.vim/bundle/Vundle.vim,~/.vim/bundle/Vundle.vim/after,~/.vim/bundle/rust.vim/after,~/.vim/bundle/nerdtree/after,~/.vim/bundle/nerdcommenter/after,~/.vim/bundle/gundo.vim/after,~/.vim/bundle/syntastic/after,~/.vim/bundle/vim-airline/after,~/.vim/bundle/ctrlp.vim/after
-set shiftwidth=3
+set shiftwidth=4
 set showtabline=2
 set smartcase
 set smartindent
 set splitright
 set tabline=%!airline#extensions#tabline#get()
-set tabstop=3
+set tabstop=4
 set wildignore=*\\tmp\\*,*.swp,*.zip,*.exe,*.suo,*.sln,*.csproj,*.pdb,*.dll,*.cache
-set window=48
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -110,13 +113,15 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +6 src/main.rs
-badd +7 src/rsignal/signal.rs
+badd +2 src/rsignal/signal.rs
 badd +8 src/rsignal/lib.rs
 badd +1 src/rsignal/graph.rs
 badd +1 chart.rs
 badd +1 src/rsignal/chart.rs
 badd +1 Cargo.toml
 badd +19 src/rsignal/abi.rs
+badd +57 /cygdrive/d/Programms/Rust/DSP3/DSP3/CustomMath.cs
+badd +0 /cygdrive/d/Programms/Rust/DSP3/DSP3/Form1.cs
 argglobal
 silent! argdel *
 argadd src/main.rs
@@ -126,11 +131,18 @@ wincmd _ | wincmd |
 vsplit
 1wincmd h
 wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 set nosplitbelow
 wincmd t
 set winheight=1 winwidth=1
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
+exe '2resize ' . ((&lines * 23 + 24) / 49)
 exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
+exe '3resize ' . ((&lines * 22 + 24) / 49)
+exe 'vert 3resize ' . ((&columns * 95 + 95) / 191)
 argglobal
 nnoremap <buffer> <D-R> :RustRun! =join(b:rust_last_rustc_args)erust#AppendCmdLine(' -- ' . join(b:rust_last_args))
 nnoremap <buffer> <silent> <D-r> :RustRun
@@ -261,12 +273,12 @@ normal! zo
 normal! zo
 19
 normal! zo
-let s:l = 64 - ((24 * winheight(0) + 23) / 46)
+let s:l = 77 - ((49 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-64
-normal! 0
+77
+normal! 036|
 wincmd w
 argglobal
 edit src/rsignal/signal.rs
@@ -388,15 +400,137 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 35 - ((34 * winheight(0) + 23) / 46)
+let s:l = 6 - ((5 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-35
+6
 normal! 0
 wincmd w
+argglobal
+edit /cygdrive/d/Programms/Rust/DSP3/DSP3/Form1.cs
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+set cursorline
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'cs'
+setlocal filetype=cs
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(3)
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cs'
+setlocal syntax=cs
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 145 - ((21 * winheight(0) + 11) / 22)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+145
+normal! 05|
+wincmd w
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
+exe '2resize ' . ((&lines * 23 + 24) / 49)
 exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
+exe '3resize ' . ((&lines * 22 + 24) / 49)
+exe 'vert 3resize ' . ((&columns * 95 + 95) / 191)
 tabedit src/rsignal/abi.rs
 set splitbelow splitright
 set nosplitbelow
