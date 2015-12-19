@@ -6,7 +6,7 @@ use ::std::mem::transmute;
 #[no_mangle]
 #[allow(non_snake_case)]
 pub extern "C" fn CreateChart(without_fi: i32) -> *mut Chart {
-    unsafe { transmute(Box::new(Chart::new(if without_fi == 1 { true } else { false }))) }
+    unsafe { transmute(Box::new(Chart::new(if without_fi == 0 { true } else { false }))) }
 }
 
 #[no_mangle]
@@ -76,5 +76,27 @@ pub extern "C" fn ShowPolyAjSpecter(ptr: *mut Chart, callback: fn(f64)) {
 pub extern "C" fn ShowPolyFiSpecter(ptr: *mut Chart, callback: fn(f64)) {
     let c: &mut Chart = unsafe { transmute(ptr) };
     c.show_poly_fi_specter(callback);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn SetMinFi(ptr: *mut Chart, min: i32) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.set_min_j(min);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn SetMaxFi(ptr: *mut Chart, max: i32) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.set_min_j(max);
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "C" fn UnsetMaxMin(ptr: *mut Chart) {
+    let c: &mut Chart = unsafe { transmute(ptr) };
+    c.unset_max_j();
+    c.unset_min_j();
 }
 

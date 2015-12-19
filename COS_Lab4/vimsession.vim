@@ -75,10 +75,10 @@ nnoremap <F5> :GundoToggle
 inoremap AA A
 inoremap II I
 inoremap OO O
-iabbr ctor public ?classwye''A0(){}ko
-iabbr for for
-iabbr cons Console.WriteLine();hi
 iabbr prop public TYPE NAME { get; set; }FT
+iabbr cons Console.WriteLine();hi
+iabbr for for (int i = a; i < a; i++){}kkfah
+iabbr ctor public ?classwye''A0(){}ko
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
@@ -113,9 +113,11 @@ badd +6 src/rsignal/lib.rs
 badd +7 src/main.rs
 badd +16 Cargo.toml
 badd +1 src/rsignal/signal.rs
-badd +42 src/rsignal/abi.rs
+badd +22 src/rsignal/abi.rs
 badd +1 src/rsignal/algos.rs
 badd +1 /cygdrive/d/Programms/Rust/DSP4/DSP4/CustomAlgoritms.cs
+badd +12 src/rsignal/specter.cs
+badd +8 src/rsignal/specter.rs
 argglobal
 silent! argdel *
 argadd src/rsignal/lib.rs
@@ -256,12 +258,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 23) / 46)
+let s:l = 4 - ((3 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 08|
+4
+normal! 0
 wincmd w
 argglobal
 edit src/rsignal/abi.rs
@@ -522,6 +524,272 @@ exe '2resize ' . ((&lines * 23 + 24) / 49)
 exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
 exe '3resize ' . ((&lines * 22 + 24) / 49)
 exe 'vert 3resize ' . ((&columns * 95 + 95) / 191)
+tabedit src/rsignal/specter.rs
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+wincmd t
+set winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
+argglobal
+nnoremap <buffer> <D-R> :RustRun! =join(b:rust_last_rustc_args)erust#AppendCmdLine(' -- ' . join(b:rust_last_args))
+nnoremap <buffer> <silent> <D-r> :RustRun
+onoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+xnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+nnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+onoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+xnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+nnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},!^F,o,O,0[,0]
+setlocal cinoptions=L0,(0,Ws,J1,j1
+setlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern
+setlocal colorcolumn=
+setlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+set cursorline
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...
+setlocal expandtab
+if &filetype != 'rust'
+setlocal filetype=rust
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croqnlj
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=substitute(v:fname,'::','/','g')
+setlocal indentexpr=GetRustIndent(v:lnum)
+setlocal indentkeys=0{,0},!^F,o,O,0[,0]
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeprg=cargo\ $*
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=.rs
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'rust'
+setlocal syntax=rust
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=99
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 13 - ((12 * winheight(0) + 23) / 46)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+13
+normal! 0
+wincmd w
+argglobal
+edit src/rsignal/lib.rs
+nnoremap <buffer> <D-R> :RustRun! =join(b:rust_last_rustc_args)erust#AppendCmdLine(' -- ' . join(b:rust_last_args))
+nnoremap <buffer> <silent> <D-r> :RustRun
+onoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+xnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+nnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+onoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+xnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+nnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},!^F,o,O,0[,0]
+setlocal cinoptions=L0,(0,Ws,J1,j1
+setlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern
+setlocal colorcolumn=
+setlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+set cursorline
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...
+setlocal expandtab
+if &filetype != 'rust'
+setlocal filetype=rust
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croqnlj
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=substitute(v:fname,'::','/','g')
+setlocal indentexpr=GetRustIndent(v:lnum)
+setlocal indentkeys=0{,0},!^F,o,O,0[,0]
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeprg=cargo\ $*
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(2)
+setlocal suffixesadd=.rs
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'rust'
+setlocal syntax=rust
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=99
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 6 - ((5 * winheight(0) + 23) / 46)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+6
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
 tabedit src/rsignal/algos.rs
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -652,12 +920,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 67 - ((29 * winheight(0) + 23) / 46)
+let s:l = 6 - ((5 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-67
-normal! 09|
+6
+normal! 0
 wincmd w
 argglobal
 edit /cygdrive/d/Programms/Rust/DSP4/DSP4/CustomAlgoritms.cs
@@ -771,11 +1039,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 82 - ((12 * winheight(0) + 23) / 46)
+let s:l = 97 - ((27 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-82
+97
 normal! 09|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)

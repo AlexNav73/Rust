@@ -13,7 +13,7 @@ fn aliase(sig: &[f64]) -> f64 {
     res / 231.0
 }
 
-pub fn parabola_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
+pub fn parabola_aliasing<C: Fn(f64)>(s: &mut Signal, callback: C) {
     let n = s.xs.len();
     let mut result = Vec::with_capacity(n);
     let m = (7.0f32 / 2.0) as usize;
@@ -22,10 +22,16 @@ pub fn parabola_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
     for i in 0..m { result[i] = s.xs[i]; }
     for i in m..(n-m) { result[i] = aliase(&s.xs[(i - m)..(i + m)]); }
     for i in (n-m)..n { result[i] = s.xs[i]; }
-    for x in result.iter() { callback(*x); }
+
+    let mut ind = 0;
+    for x in result.iter() { 
+        s.spectr[ind] = *x;
+        ind += 1;
+        callback(*x); 
+    }
 }
 
-pub fn window_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
+pub fn window_aliasing<C: Fn(f64)>(s: &mut Signal, callback: C) {
     let n = s.xs.len();
     let m = WINDOW_SIZE / 2;
     let mut result = Vec::with_capacity(n);
@@ -40,7 +46,13 @@ pub fn window_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
         result[i] = sum / WINDOW_SIZE as f64;
     }
     for i in (n-m)..n { result[i] = s.xs[i]; }
-    for y in result.iter() { callback(*y); }
+
+    let mut ind = 0;
+    for y in result.iter() { 
+        s.spectr[ind] = *y;
+        ind += 1;
+        callback(*y); 
+    }
 }
 
 fn array_copy(src: &[f64], dest: &mut [f64]) {
@@ -60,7 +72,7 @@ fn array_sort(src: &mut [f64]) {
     });
 }
 
-pub fn median_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
+pub fn median_aliasing<C: Fn(f64)>(s: &mut Signal, callback: C) {
     let len = s.xs.len();
     let m = N / 2;
     let mut result = Vec::with_capacity(len);
@@ -79,5 +91,12 @@ pub fn median_aliasing<C: Fn(f64)>(s: &Signal, callback: C) {
         result[i] = sum / (N - 2 * K) as f64;
     }
     for i in (len - m)..len { result[i] = s.xs[i]; }
-    for x in result.iter() { callback(*x); }
+
+    let mut ind = 0;
+    for x in result.iter() { 
+        s.spectr[ind] = *x;
+        ind += 1;
+        callback(*x); 
+    }
 }
+

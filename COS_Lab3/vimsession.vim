@@ -121,7 +121,7 @@ badd +1 src/rsignal/chart.rs
 badd +1 Cargo.toml
 badd +19 src/rsignal/abi.rs
 badd +57 /cygdrive/d/Programms/Rust/DSP3/DSP3/CustomMath.cs
-badd +0 /cygdrive/d/Programms/Rust/DSP3/DSP3/Form1.cs
+badd +1 /cygdrive/d/Programms/Rust/DSP3/DSP3/Form1.cs
 argglobal
 silent! argdel *
 argadd src/main.rs
@@ -266,19 +266,20 @@ silent! normal! zE
 19,33fold
 19,33fold
 35,39fold
-96,129fold
+111,129fold
+131,164fold
 19
 normal! zo
 19
 normal! zo
 19
 normal! zo
-let s:l = 77 - ((49 * winheight(0) + 23) / 46)
+let s:l = 76 - ((4 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-77
-normal! 036|
+76
+normal! 017|
 wincmd w
 argglobal
 edit src/rsignal/signal.rs
@@ -400,11 +401,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 6 - ((5 * winheight(0) + 11) / 23)
+let s:l = 27 - ((18 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
+27
 normal! 0
 wincmd w
 argglobal
@@ -519,7 +520,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 145 - ((21 * winheight(0) + 11) / 22)
+let s:l = 145 - ((20 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -655,11 +656,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 76 - ((45 * winheight(0) + 23) / 46)
+let s:l = 53 - ((45 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-76
+53
 normal! 0
 tabnext 1
 if exists('s:wipebuf')

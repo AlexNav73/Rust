@@ -3,8 +3,8 @@ extern crate rsignal;
 use rsignal::*;
 
 fn main() {
-    let s = signal::Signal::new(10.0, 20.0);
-    algos::median_aliasing(&s, |y| println!("{}", y));
+    //let s = signal::Signal::new(10.0, 20.0);
+    //algos::median_aliasing(&s, |y| println!("{}", y));
 
     //let mut a = [10i32; 10];
     //let mut counter = 1;

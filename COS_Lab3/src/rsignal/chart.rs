@@ -11,6 +11,8 @@ pub struct Chart {
     poly_signal: [f64; N],
     sins: [f64; N],
     without_fi: bool,
+    max_fi: Option<i32>,
+    min_j: Option<i32>,
     rand: ::rand::ThreadRng
 }
 
@@ -22,6 +24,8 @@ impl Chart {
             poly_signal: [0.0; N],
             sins: [0.0; N],
             without_fi: without_fi,
+            max_fi: Option::None,
+            min_j: Option::None,
             rand: ::rand::thread_rng()
         };
 
@@ -54,7 +58,7 @@ impl Chart {
                     APS[self.rand.gen::<usize>() % 7] as f64,
                     fi,
                     i as f64,
-                    1.0);
+                    j as f64);
             }
             self.poly_signal[i] = sum;
         }
@@ -74,6 +78,17 @@ impl Chart {
         }
     }
 
+    #[allow(dead_code)]
+    fn filter_j(max_j: &Option<i32>, min_j: &Option<i32>, j: i32) -> bool {
+        if let Some(min) = *min_j {
+            if j < min { return false; }
+        }
+        if let Some(max) = *max_j {
+            if j > max { return false; }
+        }
+        true
+    }
+
     pub fn recover_signal<C: Fn(f64)>(&self, sig: &[f64], add: bool, callback: C) {
         let mut amps = [0.0f64; N / 2];
         let mut fase = [0.0f64; N / 2];
@@ -86,11 +101,32 @@ impl Chart {
         for i in 0..N {
             let mut sum = if add { amps[0] / 2.0 } else { 0.0f64 };
             for j in 1..(N / 2) {
+                //if !Self::filter_j(&self.max_fi, &self.min_j, j as i32) { continue; }
                 let fi = if !self.without_fi { fase[j] } else { 0.0 };
                 sum += signal(amps[j], fi, i as f64, j as f64);
             }
             callback(sum);
         }
+    }
+
+    pub fn set_min_j(&mut self, min: i32) -> &mut Self {
+        self.min_j = Option::Some(min);
+        self
+    }
+
+    pub fn set_max_j(&mut self, max: i32) -> &mut Self {
+        self.max_fi = Option::Some(max);
+        self
+    }
+
+    pub fn unset_min_j(&mut self) -> &mut Self {
+        self.min_j = Option::None;
+        self
+    }
+
+    pub fn unset_max_j(&mut self) -> &mut Self {
+        self.max_fi = Option::None;
+        self
     }
 
     pub fn show_test_signal<C: Fn(f64)>(&self, callback: C) {

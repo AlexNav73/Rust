@@ -5,14 +5,16 @@ const N: usize = 512;
 const PI: f64 = ::std::f64::consts::PI;
 
 pub struct Signal {
-    pub xs: [f64; N]
+    pub xs: [f64; N],
+    pub spectr: [f64; N]
 }
 
 impl Signal {
 
     pub fn new(b1: f64, b2: f64) -> Signal {
         let mut s = Signal {
-            xs: [0.0; N]
+            xs: [0.0; N],
+            spectr: [0.0; N]
         };
 
         let mut rnd = ::rand::thread_rng();

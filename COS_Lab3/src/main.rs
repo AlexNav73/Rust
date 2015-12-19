@@ -1,6 +1,9 @@
 
 extern crate rsignal;
+
+#[allow(unused_imports)]
 use rsignal::signal::*;
+#[allow(unused_imports)]
 use rsignal::chart::*;
 
 #[allow(dead_code)]
