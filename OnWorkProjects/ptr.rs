@@ -97,9 +97,10 @@ fn test_char_shifting() {
     unsafe { println!("{}", *c_ptr); }
 }
 
+#[allow(dead_code)]
 fn test_string_shifting() {
 
-    let mut t = StringTest { a: "Hello".to_string(), b: " World".to_string() };
+    let mut t = StringTest { a: "Hello".to_string(), b: "_World".to_string() };
 
     let string = {
         let len = t.a.len();
@@ -115,11 +116,61 @@ fn test_string_shifting() {
     println!("{}{}", t.a, string);
 }
 
+use std::collections::HashMap;
+
+macro_rules! Struct {
+    ($name:ident {
+        $($field_name:ident: $field_type:ty,)*
+    }) => {
+        #[derive(Debug)]
+        struct $name {
+            $($field_name: $field_type,)*
+        }
+
+        impl $name {
+            fn new(data: HashMap<&str, &str>) -> $name {
+                $name {
+                    $(
+                    $field_name: data[stringify!($field_name)].parse::<$field_type>().unwrap(),
+                    )*
+                }
+            }
+        }
+    }
+}
+
+Struct! { 
+    Tmp {
+        a: i32,
+        b: u64,
+    }
+}
+
 fn main() {
+
+    let mut h = HashMap::new();
+    h.insert("a", "10");
+    h.insert("b", "30");
+    let t = Tmp::new(h);
+    println!("{:?}", t);
+
     //test_isize_shifting();
     //test_usize_shifting();
     //test_i32_shifting();
     //test_char_shifting();
     //test_string_shifting();
-    test_string_shifting();
+    
+    //let mut t = StringTest { a: "Hello".to_string(), b: "_World".to_string() };
+    //
+    //let mut a_ptr: *mut String = &mut t.a as *mut String;
+    //a_ptr = unsafe { a_ptr.offset(24 as isize) };
+    //let us: *mut [usize; 3] = unsafe { std::mem::transmute(a_ptr) };
+    //let ref_us: &[usize; 3] = unsafe { std::mem::transmute(us) };
+    //
+    //println!("capacity: {}", ref_us[2]);
+    //println!("len: {}", ref_us[1]);
+    //println!("ptr: {}", ref_us[0]);
+    //
+    //println!("\"{}\"", unsafe { String::from_raw_parts(ref_us[0] as *mut u8, ref_us[1], ref_us[2]) });
+    
 }
