@@ -83,15 +83,17 @@ impl<'a> IntoIterator for &'a mut Process {
     }
 }
 
+type PrecessInfo = (DWORD, String);
+
 impl<'a> Iterator for ProcessIter<'a> {
     type Item = String;
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.ind < self.inner.len {
-            self.ind += 1;
             let process_id = self.inner.a_procs[self.ind];
             let process_name = self.inner.get_process_name(process_id).unwrap();
-            Some(format!("Name: {} PID: {}", process_name, process_id))
+            self.ind += 1;
+            Some((process_id, process_name))
         } else {
             None
         }
@@ -102,8 +104,8 @@ fn main() {
 
     let mut pe = match Process::new() {
         Ok(ref mut pe) => {
-            for p in pe.into_iter() {
-                println!("{}", p);
+            for (id, name) in pe.into_iter() {
+                println!("PID: {} Name: {}", id, name);
             }
         }
         Err(_) => panic!("Error")
