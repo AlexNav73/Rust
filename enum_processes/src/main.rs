@@ -52,14 +52,14 @@ impl IntoIterator for ProcessesSnapshot {
     type Item = String;
     type IntoIter = ProcessIter;
 
-    fn into_iter(self) -> ProcessIter {
-
+    fn into_iter(mut self) -> ProcessIter {
         let mut pe32 = new_process_entry();
 
         unsafe {
             if let Some(s) = self.inner {
                 if Process32First(s, &mut pe32 as LPPROCESSENTRY32) == 0 {
                     CloseHandle(s);
+                    self.inner = None;
                 }
             }
         }
@@ -68,7 +68,6 @@ impl IntoIterator for ProcessesSnapshot {
             snapshot: self,
             pe32: pe32
         }
-
     }
 }
 
@@ -76,18 +75,23 @@ impl Iterator for ProcessIter {
     type Item = String;
 
     fn next(&mut self) -> Option<Self::Item> {
-
         use std::ffi::*;
+
         let string = unsafe { CString::from_raw(self.pe32.szExeFile[..].as_mut_ptr()) };
-        let ret = String::from_utf8_lossy(string.as_bytes());
+
+        let ret = match string.to_str() {
+            Ok(s) => s.to_owned(),
+            Err(_) => return None
+        };
 
         if let Some(snap) = self.snapshot.inner {
+            // Clear array to prevent names overlapping
+            for x in self.pe32.szExeFile.iter_mut() { *x = 0; }
+
             unsafe {
                 if Process32Next(snap, &mut self.pe32 as LPPROCESSENTRY32) != 0 {
-                    Some(ret.into_owned())
-                } else {
-                    None
-                }
+                    Some(ret)
+                } else { None }
             }
         } else { None }
     }
