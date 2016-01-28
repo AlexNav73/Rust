@@ -26,32 +26,6 @@ impl ProcessesSnapshot {
         })
     }
 
-    //fn get_process_name(&self, procId: DWORD) -> Result<String, ()> {
-
-        //let mut ret_val = Err(());
-        //let h_proc: HANDLE = unsafe { OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0 as BOOL, procId) };
-
-        //if !h_proc.is_null() {
-
-            //let mut h_mod: HMODULE = unsafe { std::mem::uninitialized() };
-            //let mut cb_needed: DWORD = 0;
-            //let mut name: [WCHAR; 1024] = unsafe { std::mem::uninitialized() };
-
-            //unsafe {
-                //if K32EnumProcessModules(h_proc, &mut h_mod as *mut HMODULE, std::mem::size_of::<HMODULE>() as DWORD, &mut cb_needed as LPDWORD) != -1 {
-                    //let mut name_ref: [usize; 2] = unsafe { std::mem::transmute(name.as_mut()) };
-                    //let name_ptr = name_ref[0] as LPWSTR;
-                    //K32GetModuleBaseNameW(h_proc, h_mod, name_ptr, 1024);
-
-                    ////unsafe { ret_val = Ok(std::ffi::CString::from_raw(std::mem::transmute(&mut name)).into_string().unwrap()) }
-                    //ret_val = Ok("Name".to_string());
-                //}
-
-                //CloseHandle(h_proc);
-            //}
-        //}
-        //ret_val
-    //}
 }
 
 fn new_process_entry() -> PROCESSENTRY32 {
