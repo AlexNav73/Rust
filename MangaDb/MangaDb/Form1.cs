@@ -16,23 +16,22 @@ namespace MangaDb
 {
     public partial class Form1 : Form
     {
-        private Conveyor _conveyer = null;
-
         public Form1()
         {
             InitializeComponent();
-
-            _conveyer = new Conveyor()
-                .RegisterModule(new Downloader())
-                .RegisterModule(new Parser());
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            List<ListEntry> list = (List<ListEntry>)await _conveyer.Process();
+            var conveyer = new Conveyor()
+                .RegisterModule(new Downloader())
+                .RegisterModule(new Parser())
+                .RegisterModule(new NewRecordsFilter());
+
+            List<ListEntry> list = (List<ListEntry>)await conveyer.Process();
             foreach (ListEntry item in list)
             {
-                listBox1.Items.Add(item.Url);
+                listBox1.Items.Add(item.Name);
             }
         }
     }

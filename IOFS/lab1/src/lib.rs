@@ -64,13 +64,13 @@ impl WordCounter {
     /// Converts HashMap to Vec<_> to sort by probability of words
     /// In Vec<_> index represents rang of word in [Zippha theorem]
     ///
-    pub fn count_probability(&self) -> Vec<(&str, f32)> {
+    pub fn count_probability(&self) -> Vec<(&str, f64)> {
         let (text_length, mut entries) = self.get_entries();
 
         // Pi = Ni / N
         let mut v = entries.drain()
-            .map(|(k, v)| (k, v as f32 / text_length as f32))
-            .collect::<Vec<(&str, f32)>>();
+            .map(|(k, v)| (k, v as f64 / text_length as f64))
+            .collect::<Vec<(&str, f64)>>();
 
         // Sort to make words with max Pi have max rang
         v.sort_by(|&(_, v1), &(_, v2)|
@@ -147,7 +147,7 @@ mod tests {
 
         let ptr = CreateWordCounter();
 
-        fn print(r: u32, y: f32) { println!("Rang: {} Value: {}", r, y); }
+        fn print(r: u32, y: f64) { println!("Rang: {} Value: {}", r, y); }
 
         Enumerate(ptr, print);
 

@@ -11,9 +11,9 @@ namespace CsProject
     {
         private IntPtr _ptr;
 
-        public delegate void EnumerateCallBack(uint x, float y);
+        public delegate void EnumerateCallBack(uint x, double y);
 
-        public delegate void CountConstCallBack(float c);
+        public delegate void CountConstCallBack(double c);
 
         [DllImport("External\\lab1.dll")]
         private static extern IntPtr CreateWordCounter(string s);
@@ -25,7 +25,6 @@ namespace CsProject
         private static extern void Enumerate(IntPtr ptr, MulticastDelegate predicate);
         [DllImport("External\\lab1.dll")]
         private static extern void CountConst(IntPtr ptr, MulticastDelegate predicate);
-
 
         public RustObject(string path)
         {

@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MangaDb.Contexts
+namespace MangaDb.Results
 {
-    public class ParserContext
+    public class DownloaderResult
     {
         public string Page { get; set; }
         public MainConfig Config { get; set; }

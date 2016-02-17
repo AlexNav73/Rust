@@ -42,11 +42,15 @@ namespace MangaDb.Configurations
         public Entry Entry { get; set; }
         [XmlElement(ElementName = "recordRegex")]
         public string RecordRegex { get; set; }
+        [XmlElement(ElementName = "dbFilePath")]
+        public string FilePath { get; set; }
 
         public string GetLinkToPage(string partialLink)
         {
             Regex r = new Regex(@"(http.?:\/\/[\w.]*)");
-            return r.Match(ListSiteUrl).Groups[0].Value + partialLink;
+            if (!r.IsMatch(partialLink))
+                return r.Match(ListSiteUrl).Groups[0].Value + partialLink;
+            return partialLink;
         }
 
     }

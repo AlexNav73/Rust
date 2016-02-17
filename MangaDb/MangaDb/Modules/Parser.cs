@@ -1,12 +1,15 @@
-﻿using MangaDb.Contexts;
-using MangaDb.Entities;
+﻿using MangaDb.Entities;
 using MangaDb.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MangaDb.Configurations;
+using MangaDb.Results;
+using Group = System.Text.RegularExpressions.Group;
 
 namespace MangaDb.Modules
 {
@@ -14,31 +17,31 @@ namespace MangaDb.Modules
     {
         public async Task<object> Execute(object context)
         {
-            var cont = (ParserContext)context;
+            var cont = (DownloaderResult)context;
 
-            string pattern = @"<a href='.*' class='site-element .*' .*</a>";
-            string p2 = @"<a href='(.*)'.* title='(.*: (.*))?'.*>(.*)<sup>.*>(.*)<\/a>.*rel='(.*)' .*";
-
-            //Regex reg = new Regex(cont.Config.ListRegex, RegexOptions.Compiled);
-            Regex reg = new Regex(pattern, RegexOptions.Compiled);
+            Regex reg = new Regex(cont.Config.RecordRegex, RegexOptions.Compiled);
             List<ListEntry> result = new List<ListEntry>();
             foreach (Match match in reg.Matches(cont.Page))
             {
-                ParseRecord(p2, cont.Tld, match, result);
+                ParseRecord(cont.Config, match, result);
             }
 
-            return result;
+            return new ParseResult()
+            {
+                DownloaderResult = cont,
+                Entries = result
+            };
         }
 
-        private void ParseRecord(string pattern, string tld, Match record, List<ListEntry> result)
+        private static void ParseRecord(MainConfig conf, Capture record, ICollection<ListEntry> result)
         {
-            foreach (Match attibutes in (new Regex(pattern)).Matches(record.Value))
+            var reg = new Regex(conf.Entry.Regex);
+            foreach (Match attibutes in reg.Matches(record.Value))
             {
-                List<string> vals = new List<string>(attibutes.Groups.Count - 1);
-                foreach (Group g in attibutes.Groups)
-                    vals.Add(g.Value);
-                var entry = new ListEntry().Init(vals);
-                entry.Url = tld + entry.Url;
+                var vals = new List<string>(attibutes.Groups.Count - 1);
+                vals.AddRange(from Group g in attibutes.Groups select g.Value);
+                var entry = new ListEntry().Init(conf.Entry.Groups, vals);
+                entry.Url = conf.GetLinkToPage(entry.Url);
                 result.Add(entry);
             }
         }

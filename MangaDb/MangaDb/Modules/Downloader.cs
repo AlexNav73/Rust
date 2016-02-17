@@ -1,12 +1,7 @@
 ﻿using MangaDb.Configurations;
-using MangaDb.Contexts;
 using MangaDb.Helpers;
-using MangaDb.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using MangaDb.Results;
 
 namespace MangaDb.Modules
 {
@@ -19,13 +14,10 @@ namespace MangaDb.Modules
 
             HttpHelper helper = new HttpHelper();
 
-            return new ParserContext()
+            return new DownloaderResult()
             {
-                //Page = helper.DownloadPage(conf.ListLocationUrl),
-                Page = await helper.DownloadPage(),
-                Tld = @"http://grouple.ru/user/652147/bookmarks",
-                //Config = conf
-                Config = null
+                Page = await helper.DownloadPage(conf.ListSiteUrl),
+                Config = conf
             };
         }
 

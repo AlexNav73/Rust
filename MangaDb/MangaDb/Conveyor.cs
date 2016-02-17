@@ -22,8 +22,8 @@ namespace MangaDb
 
         public async Task<object> Process()
         {
-            //object context = GetMainConfig();
-            object context = null; // GetMainConfig();
+            object context = GetMainConfig();
+//            object context = null; // GetMainConfig();
 
             foreach (IModule module in _modules)
             {
