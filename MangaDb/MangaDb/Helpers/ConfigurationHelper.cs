@@ -27,7 +27,7 @@ namespace MangaDb.Helpers
         public static void Serialize<T>(string fileName, T obj)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-            using (FileStream file = new FileStream(GetConfigFilePath(fileName), FileMode.Open))
+            using (FileStream file = new FileStream(GetConfigFilePath(fileName), FileMode.OpenOrCreate))
             {
                 serializer.Serialize(file, obj);
             }

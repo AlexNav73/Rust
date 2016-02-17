@@ -1,4 +1,6 @@
-﻿using MangaDb.Entities;
+﻿using MangaDb.Configurations;
+using MangaDb.Entities;
+using MangaDb.Helpers;
 using MangaDb.Modules;
 using System;
 using System.Collections.Generic;

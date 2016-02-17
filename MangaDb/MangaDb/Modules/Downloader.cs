@@ -14,15 +14,15 @@ namespace MangaDb.Modules
     {
         public async Task<object> Execute(object context)
         {
-            //var conf = context as MainConfig;
-            //if (conf == null) return null;
+            var conf = context as MainConfig;
+            if (conf == null) return null;
 
             HttpHelper helper = new HttpHelper();
 
             return new ParserContext()
             {
                 //Page = helper.DownloadPage(conf.ListLocationUrl),
-                Page = await helper.DownloadPage("http://grouple.ru/user/652147/bookmarks"),
+                Page = await helper.DownloadPage(),
                 Tld = @"http://grouple.ru/user/652147/bookmarks",
                 //Config = conf
                 Config = null
