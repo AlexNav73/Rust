@@ -23,7 +23,7 @@ namespace MangaDb.Modules
                 var records = helper.GetRecords<ListEntry>(path);
                 var newRecords = res.Entries.Where(r => !records.Contains(r)).ToList();
                 helper.AppendRecords(path, newRecords);
-                return newRecords;
+                return res.Entries;
             }
             helper.SaveRecords(path, res.Entries);
 
