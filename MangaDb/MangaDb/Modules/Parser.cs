@@ -1,6 +1,6 @@
 ﻿using MangaDb.Contexts;
 using MangaDb.Entities;
-using MangaDb.Processors;
+using MangaDb.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,25 +16,26 @@ namespace MangaDb.Modules
         {
             var cont = (ParserContext)context;
 
-            string pattern = @"<a href='.*' class='site-element site_2' .*</a>";
+            string pattern = @"<a href='.*' class='site-element .*' .*</a>";
+            string p2 = @"<a .* title='(.*: (.*))?'.*>(.*)<sup>.*>(.*)<\/a>.*rel='(.*)' .*";
+
             //Regex reg = new Regex(cont.Config.ListRegex, RegexOptions.Compiled);
             Regex reg = new Regex(pattern, RegexOptions.Compiled);
             List<ListEntry> result = new List<ListEntry>();
             foreach (Match match in reg.Matches(cont.Page))
             {
-                ProcessMatch(match, result);
+                ParseRecord(p2, match, result);
             }
 
-            return null;
+            return result;
         }
 
-        private void ProcessMatch(Match match, List<ListEntry> result)
+        private void ParseRecord(string pattern, Match record, List<ListEntry> result)
         {
-            Regex r = new Regex(@"<a .* title='.*: (.*)'.*>(.*)<sup>.*>(.*)<\/span>.*rel='(.*)' .*");
-            foreach (Match ma in r.Matches(match.Value))
+            foreach (Match attibutes in (new Regex(pattern)).Matches(record.Value))
             {
-                List<string> vals = new List<string>(ma.Groups.Count - 1);
-                foreach (Group g in ma.Groups)
+                List<string> vals = new List<string>(attibutes.Groups.Count - 1);
+                foreach (Group g in attibutes.Groups)
                     vals.Add(g.Value);
                 result.Add(new ListEntry().Init(vals));
             }

@@ -1,4 +1,5 @@
-﻿using MangaDb.Modules;
+﻿using MangaDb.Entities;
+using MangaDb.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,11 @@ namespace MangaDb
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            await _conveyer.Process();
+            List<ListEntry> list = (List<ListEntry>)await _conveyer.Process();
+            foreach (ListEntry item in list)
+            {
+                listBox1.Items.Add(item.Name);
+            }
         }
     }
 }

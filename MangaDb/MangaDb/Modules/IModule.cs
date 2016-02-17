@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MangaDb.Processors
+namespace MangaDb.Modules
 {
     public interface IModule
     {

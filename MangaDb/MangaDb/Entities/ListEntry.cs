@@ -18,7 +18,7 @@ namespace MangaDb.Entities
         {
             var props = GetType().GetProperties();
             for (int i = 0; i < props.Length; i++)
-                props[i].SetValue(this, values[i + 1]);
+                props[i].SetValue(this, values[i + 2]);
             return this;
         }
     }

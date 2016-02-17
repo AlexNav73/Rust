@@ -1,7 +1,7 @@
 ﻿using MangaDb.Configurations;
 using MangaDb.Contexts;
 using MangaDb.Helpers;
-using MangaDb.Processors;
+using MangaDb.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;

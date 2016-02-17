@@ -1,6 +1,6 @@
 ﻿using MangaDb.Configurations;
 using MangaDb.Helpers;
-using MangaDb.Processors;
+using MangaDb.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace MangaDb
             return this;
         }
 
-        public async Task Process()
+        public async Task<object> Process()
         {
             //object context = GetMainConfig();
             object context = null; // GetMainConfig();
@@ -29,8 +29,9 @@ namespace MangaDb
             {
                 context = await module.Execute(context);
                 if (context == null)
-                    return;
+                    return null;
             }
+            return context;
         }
 
         private MainConfig GetMainConfig()
