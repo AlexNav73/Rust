@@ -30,12 +30,15 @@ namespace MangaDb.Modules
 
         private void ProcessMatch(Match match, List<ListEntry> result)
         {
-            Regex r = new Regex(@"<a .*>(.*)<sup>.*");
+            Regex r = new Regex(@"<a .* title='.*: (.*)'.*>(.*)<sup>.*>(.*)<\/span>.*rel='(.*)' .*");
             foreach (Match ma in r.Matches(match.Value))
             {
                 result.Add(new ListEntry()
                 {
-                    Name = ma.Groups[1].Value,
+                    Genries = ListEntry.ParseGenries(ma.Groups[1].Value),
+                    Name = ma.Groups[2].Value,
+                    Translation = ma.Groups[3].Value,
+                    TumbnailUrl = ma.Groups[4].Value
                 });
             }
         }
