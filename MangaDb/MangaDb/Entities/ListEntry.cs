@@ -8,11 +8,11 @@ namespace MangaDb.Entities
 {
     public class ListEntry
     {
+        public string Url { get; set; }
         public string Genries { get; set; }
         public string Name { get; set; }
         public string Translation { get; set; }
         public string TumbnailUrl { get; set; }
-
 
         public ListEntry Init(List<string> values)
         {

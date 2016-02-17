@@ -23,6 +23,7 @@ namespace MangaDb.Modules
             {
                 //Page = helper.DownloadPage(conf.ListLocationUrl),
                 Page = await helper.DownloadPage("http://grouple.ru/user/652147/bookmarks"),
+                Tld = @"http://grouple.ru/user/652147/bookmarks",
                 //Config = conf
                 Config = null
             };

@@ -30,7 +30,7 @@ namespace MangaDb
             List<ListEntry> list = (List<ListEntry>)await _conveyer.Process();
             foreach (ListEntry item in list)
             {
-                listBox1.Items.Add(item.Name);
+                listBox1.Items.Add(item.Url);
             }
         }
     }
