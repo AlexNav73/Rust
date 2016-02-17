@@ -33,13 +33,10 @@ namespace MangaDb.Modules
             Regex r = new Regex(@"<a .* title='.*: (.*)'.*>(.*)<sup>.*>(.*)<\/span>.*rel='(.*)' .*");
             foreach (Match ma in r.Matches(match.Value))
             {
-                result.Add(new ListEntry()
-                {
-                    Genries = ListEntry.ParseGenries(ma.Groups[1].Value),
-                    Name = ma.Groups[2].Value,
-                    Translation = ma.Groups[3].Value,
-                    TumbnailUrl = ma.Groups[4].Value
-                });
+                List<string> vals = new List<string>(ma.Groups.Count - 1);
+                foreach (Group g in ma.Groups)
+                    vals.Add(g.Value);
+                result.Add(new ListEntry().Init(vals));
             }
         }
     }

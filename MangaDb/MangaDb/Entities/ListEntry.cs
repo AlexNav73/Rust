@@ -8,15 +8,18 @@ namespace MangaDb.Entities
 {
     public class ListEntry
     {
+        public string Genries { get; set; }
         public string Name { get; set; }
-        public List<string> Genries { get; set; }
         public string Translation { get; set; }
         public string TumbnailUrl { get; set; }
 
 
-        public static List<string> ParseGenries(string list)
+        public ListEntry Init(List<string> values)
         {
-            return list.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var props = GetType().GetProperties();
+            for (int i = 0; i < props.Length; i++)
+                props[i].SetValue(this, values[i + 1]);
+            return this;
         }
     }
 }
