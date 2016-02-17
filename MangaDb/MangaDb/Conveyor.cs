@@ -13,6 +13,7 @@ namespace MangaDb
     {
         private List<IModule> _modules = new List<IModule>();
 
+
         public Conveyor RegisterModule(IModule module)
         {
             _modules.Add(module);
