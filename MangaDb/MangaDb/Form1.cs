@@ -33,9 +33,7 @@ namespace MangaDb
                 .RegisterModule(new UpdateDb())
                 .RegisterModule(new Format(new HtmlFormatter()));
 
-            string s = (string)await conveyer.Process();
-            webBrowser1.DocumentText = s;
-            File.AppendAllText("out.html", s);
+            webBrowser1.DocumentText = (string)await conveyer.Process();
         }
 
         private static bool _willNavigate;
