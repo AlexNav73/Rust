@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MangaDb.Entities;
 
 namespace MangaDb.Helpers
 {
@@ -23,6 +24,16 @@ namespace MangaDb.Helpers
                     using (HttpContent content = response.Content)
                     {
                         return await content.ReadAsStringAsync();
+                    }
+        }
+
+        public async Task<byte[]> DownloadImage(ListEntry item)
+        {
+            using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(item.TumbnailUrl))
+                    using (HttpContent content = response.Content)
+                    {
+                        return await content.ReadAsByteArrayAsync();
                     }
         }
     }

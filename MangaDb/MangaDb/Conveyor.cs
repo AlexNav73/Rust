@@ -13,8 +13,7 @@ namespace MangaDb
 {
     public class Conveyor
     {
-        private List<IModule> _modules = new List<IModule>();
-
+        private readonly List<IModule> _modules = new List<IModule>();
 
         public Conveyor RegisterModule(IModule module)
         {
@@ -24,9 +23,7 @@ namespace MangaDb
 
         public async Task<object> Process()
         {
-            var conf = GetMainConfig();
-
-            object context = new ConveyorContext() { Config = conf };
+            object context = new ConveyorContext() { Config = GetMainConfig() };
 
             foreach (IModule module in _modules)
             {
@@ -34,6 +31,7 @@ namespace MangaDb
                 if (context == null)
                     return null;
             }
+
             return context;
         }
 

@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,17 +25,6 @@ namespace MangaDb
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private async void viewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var conveyer = new Conveyor()
-                .RegisterModule(new Downloader())
-                .RegisterModule(new Parser())
-                .RegisterModule(new UpdateDb(new RecordRepository()))
-                .RegisterModule(new Format(new HtmlFormatter()));
-
-            webBrowser1.DocumentText = (string)await conveyer.Process();
         }
 
         private static bool _willNavigate;
@@ -50,5 +40,37 @@ namespace MangaDb
             e.Cancel = true;
             Process.Start(new ProcessStartInfo() { FileName = e.Url.ToString() });
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Options().Show();
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AddForm().Show();
+        }
+
+        private async void fromWebPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var conveyer = new Conveyor()
+                .RegisterModule(new Downloader())
+                .RegisterModule(new Parser())
+                .RegisterModule(new UpdateDb(new RecordRepository()))
+                .RegisterModule(new ImageDownloader())
+                .RegisterModule(new Format(new HtmlFormatter()));
+
+            webBrowser1.DocumentText = (string)await conveyer.Process();
+        }
+
+        private async void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var conveyer = new Conveyor()
+                .RegisterModule(new Reader())
+                .RegisterModule(new Format(new HtmlFormatter()));
+
+            webBrowser1.DocumentText = (string)await conveyer.Process();
+        }
+
     }
 }

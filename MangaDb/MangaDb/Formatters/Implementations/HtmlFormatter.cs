@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
+using MangaDb.Configurations;
 
 namespace MangaDb.Formatters.Implementations
 {
@@ -38,16 +39,7 @@ namespace MangaDb.Formatters.Implementations
         private void CreateBody(HtmlTextWriter writer, IEnumerable<ListEntry> items)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Table);
-
-            GetHeaders(items).ForEach(e =>
-            {
-                writer.RenderBeginTag(HtmlTextWriterTag.Th);
-                writer.Write(e);
-                writer.RenderEndTag();
-            });
-
             items.ForEach(e => ProcessFields(writer, e));
-
             writer.RenderEndTag();
         }
 
@@ -71,15 +63,15 @@ namespace MangaDb.Formatters.Implementations
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Href, link);
             writer.RenderBeginTag(HtmlTextWriterTag.A);
-            writer.Write("Click     ");
+            writer.Write("Read");
             writer.RenderEndTag();
         }
 
         private void RenderImage(HtmlTextWriter writer, string link)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Src, link);
-            writer.AddAttribute(HtmlTextWriterAttribute.Width, "42");
-            writer.AddAttribute(HtmlTextWriterAttribute.Height, "42");
+            writer.AddAttribute(HtmlTextWriterAttribute.Width, AppSettings.ImgWidth);
+            writer.AddAttribute(HtmlTextWriterAttribute.Height, AppSettings.ImgHeight);
             writer.RenderBeginTag(HtmlTextWriterTag.Img);
             writer.RenderEndTag();
         }
@@ -95,13 +87,6 @@ namespace MangaDb.Formatters.Implementations
             writer.RenderBeginTag(HtmlTextWriterTag.Td);
             RenderImage(writer, (string)items[1]);
             writer.RenderEndTag();
-        }
-
-        private IEnumerable<string> GetHeaders(IEnumerable<ListEntry> items)
-        {
-            return typeof(ListEntry).GetProperties()
-                .Where(p => p.GetCustomAttribute<ExcludeAttribute>() == null)
-                .Select(p => p.Name);
         }
 
         private IEnumerable<object> GetData(ListEntry item)

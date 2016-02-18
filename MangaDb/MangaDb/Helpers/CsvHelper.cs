@@ -35,5 +35,13 @@ namespace MangaDb.Helpers
                 records.ForEach(r => writer.WriteRecord(r));
             }
         }
+
+        public void AppendRecords<T>(string fileName, Type type, IEnumerable<T> records)
+        {
+            using (var writer = new CsvWriter(new StreamWriter(File.Open(fileName, FileMode.Append))))
+            {
+                records.ForEach(r => writer.WriteRecord(type, r));
+            }
+        }
     }
 }

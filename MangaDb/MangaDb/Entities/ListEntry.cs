@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MangaDb.Configurations;
+﻿using System.Collections.Generic;
 using MangaDb.Attributes;
+using MangaDb.Configurations;
 
 namespace MangaDb.Entities
 {

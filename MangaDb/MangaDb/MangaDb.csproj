@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddForm.Designer.cs">
+      <DependentUpon>AddForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\IncludeAttribute.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
@@ -63,7 +69,15 @@
     <Compile Include="Formatters\IFormatter.cs" />
     <Compile Include="Formatters\Implementations\HtmlFormatter.cs" />
     <Compile Include="Modules\Implementations\Format.cs" />
+    <Compile Include="Modules\Implementations\ImageDownloader.cs" />
+    <Compile Include="Modules\Implementations\Reader.cs" />
     <Compile Include="Modules\Implementations\UpdateDb.cs" />
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Implementations\RecordRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Results\DownloaderResult.cs" />
@@ -84,8 +98,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ParseResult.cs" />
+    <EmbeddedResource Include="AddForm.resx">
+      <DependentUpon>AddForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

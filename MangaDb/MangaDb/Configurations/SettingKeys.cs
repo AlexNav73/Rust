@@ -10,5 +10,9 @@ namespace MangaDb.Configurations
     {
         public const string MainConfigPath = "MainConfigPath";
         public const string DbFileName = "DbFileName";
+        public const string ImgWidth = "ImgWidth";
+        public const string ImgHeight = "ImgHeight";
+        public const string EntryType = "EntryType";
+        public const string ImageFolder = "ImageFolder";
     }
 }
