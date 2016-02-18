@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MangaDb.Configurations;
 using MangaDb.Entities;
 using MangaDb.Helpers;
+using MangaDb.Results;
 
 namespace MangaDb.Modules.Implementations
 {
@@ -15,7 +16,8 @@ namespace MangaDb.Modules.Implementations
     {
         public async Task<object> Execute(object context)
         {
-            var es = (List<ListEntry>) context;
+            var res = (ParseResult) context;
+            var es = res.Entries;
 
             HttpHelper helper = new HttpHelper();
             foreach (ListEntry entry in es)
@@ -29,7 +31,7 @@ namespace MangaDb.Modules.Implementations
 
                 entry.TumbnailUrl = fileName;
             }
-            return es;
+            return res;
         }
 
         private string GetImagePath(string url, string tumbnailUrl)

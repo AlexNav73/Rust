@@ -12,7 +12,7 @@ namespace MangaDb.Modules.Implementations
 {
     public class UpdateDb : IModule
     {
-        private IRepository<ListEntry> _repository;
+        private readonly IRepository<ListEntry> _repository;
 
         public UpdateDb(IRepository<ListEntry> repo)
         {
@@ -29,7 +29,7 @@ namespace MangaDb.Modules.Implementations
             if (File.Exists(path))
             {
                 var records = _repository.GetAll();
-                var newRecords = Enumerable.Except(res.Entries, records).ToList();
+                var newRecords = res.Entries.Except(records).ToList();
                 _repository.AddRange(newRecords);
                 return res.Entries;
             }

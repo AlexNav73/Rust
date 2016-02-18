@@ -56,8 +56,8 @@ namespace MangaDb
             var conveyer = new Conveyor()
                 .RegisterModule(new Downloader())
                 .RegisterModule(new Parser())
-                .RegisterModule(new UpdateDb(new RecordRepository()))
                 .RegisterModule(new ImageDownloader())
+                .RegisterModule(new UpdateDb(new RecordRepository()))
                 .RegisterModule(new Format(new HtmlFormatter()));
 
             webBrowser1.DocumentText = (string)await conveyer.Process();
