@@ -43,7 +43,7 @@ namespace MangaDb
                 control.Text = "";
             }
 
-            var conf = ConfigurationHelper.Deserialize<MainConfig>(AppSettings.MainConfigPath);
+            var conf = ConfigurationHelper.Deserialize<MainConfig>();
             Helpers.CsvHelper helper = new Helpers.CsvHelper();
             helper.AppendRecords(conf.FilePath, _entryType, new[] { entry });
         }

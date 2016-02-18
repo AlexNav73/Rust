@@ -11,9 +11,9 @@ namespace MangaDb.Helpers
 {
     public static class ConfigurationHelper
     {
-        private static string GetConfigFilePath(string fileName)
+        private static string GetConfigFilePath()
         {
-            string path = AppSettings.MainConfigPath;
+            string path = Path.Combine(Environment.CurrentDirectory, AppSettings.MainConfigPath);
             string directory = Path.GetDirectoryName(path);
 
             if (!Directory.Exists(directory))
@@ -28,19 +28,19 @@ namespace MangaDb.Helpers
             return path;
         }
 
-        public static T Deserialize<T>(string fileName)
+        public static T Deserialize<T>()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-            using (FileStream file = new FileStream(GetConfigFilePath(fileName), FileMode.Open))
+            using (FileStream file = new FileStream(GetConfigFilePath(), FileMode.Open))
             {
                 return (T)serializer.Deserialize(file);
             }
         }
 
-        public static void Serialize<T>(string fileName, T obj)
+        public static void Serialize<T>(T obj)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-            using (FileStream file = new FileStream(GetConfigFilePath(fileName), FileMode.OpenOrCreate))
+            using (FileStream file = new FileStream(GetConfigFilePath(), FileMode.OpenOrCreate))
             {
                 serializer.Serialize(file, obj);
             }
@@ -66,7 +66,7 @@ namespace MangaDb.Helpers
                 RecordRegex = @"<a href='.*' class='site-element .*' .*</a>",
                 FilePath = Path.Combine(Environment.CurrentDirectory, AppSettings.DbFileName)
             };
-            Serialize(path, conf);
+            Serialize(conf);
         }
 
     }

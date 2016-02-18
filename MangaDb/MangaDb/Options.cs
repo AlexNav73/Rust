@@ -20,7 +20,7 @@ namespace MangaDb
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var conf = Helpers.ConfigurationHelper.Deserialize<MainConfig>(AppSettings.MainConfigPath);
+            var conf = Helpers.ConfigurationHelper.Deserialize<MainConfig>();
 
             var form = (Control) this;
             foreach (Control control in form.Controls)
@@ -30,7 +30,7 @@ namespace MangaDb
                 if (prop != null) prop.SetValue(conf, control.Text);
             }
 
-            Helpers.ConfigurationHelper.Serialize(AppSettings.MainConfigPath, conf);
+            Helpers.ConfigurationHelper.Serialize(conf);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MangaDb
 
         private MainConfig GetMainConfig()
         {
-            return ConfigurationHelper.Deserialize<MainConfig>(SettingKeys.MainConfigPath);
+            return ConfigurationHelper.Deserialize<MainConfig>();
         }
     }
 }

@@ -42,10 +42,12 @@ namespace MangaDb.Modules.Implementations
 
             fileName = string.Format("{0}.{1}", fileName, extension);
 
-            if (!Directory.Exists(AppSettings.ImageFolder))
-                Directory.CreateDirectory(AppSettings.ImageFolder);
+            string imageFolder = Path.Combine(Environment.CurrentDirectory, AppSettings.ImageFolder);
 
-            return Path.Combine(Environment.CurrentDirectory, AppSettings.ImageFolder, fileName);
+            if (!Directory.Exists(imageFolder))
+                Directory.CreateDirectory(imageFolder);
+
+            return Path.Combine(imageFolder, fileName);
         }
     }
 }
