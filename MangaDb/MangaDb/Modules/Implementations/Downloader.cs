@@ -2,22 +2,21 @@
 using MangaDb.Helpers;
 using System.Threading.Tasks;
 using MangaDb.Results;
+using MangaDb.Contexts;
 
-namespace MangaDb.Modules
+namespace MangaDb.Modules.Implementations
 {
     public class Downloader : IModule
     {
         public async Task<object> Execute(object context)
         {
-            var conf = context as MainConfig;
-            if (conf == null) return null;
-
+            var conf = (ConveyorContext)context;
             HttpHelper helper = new HttpHelper();
 
             return new DownloaderResult()
             {
-                Page = await helper.DownloadPage(conf.ListSiteUrl),
-                Config = conf
+                Page = await helper.DownloadPage(conf.Config.ListSiteUrl),
+                Context = conf
             };
         }
 

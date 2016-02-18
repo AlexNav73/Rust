@@ -8,6 +8,6 @@ namespace MangaDb.Configurations
 {
     public static class SettingKeys
     {
-        public const string MainConfigFileName = "mainConfig.xml";
+        public const string MainConfigPath = "MainConfigPath";
     }
 }

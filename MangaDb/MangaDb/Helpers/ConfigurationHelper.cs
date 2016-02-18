@@ -13,7 +13,19 @@ namespace MangaDb.Helpers
     {
         private static string GetConfigFilePath(string fileName)
         {
-            return Path.Combine(Environment.CurrentDirectory, "Configs", fileName);
+            string path = AppSettings.MainConfigPath;
+            string directory = Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, "");
+                CreateDefaultConfigurationFile(path);
+            }
+
+            return path;
         }
 
         public static T Deserialize<T>(string fileName)
@@ -34,7 +46,7 @@ namespace MangaDb.Helpers
             }
         }
 
-        public static void CreateDefaultConfigurationFile()
+        public static void CreateDefaultConfigurationFile(string path)
         {
             MainConfig conf = new MainConfig()
             {
@@ -43,16 +55,17 @@ namespace MangaDb.Helpers
                     Regex = @"<a href='(.*)' .* title='(.*: (.*))?'.*>(.*)<sup>.*>(.*)<\/a>.*rel='(.*)' .*",
                     Groups = new Groups() { Group = new List<Group>()
                     {
-                        new Group() { Id = 0, PropName = "Name1" },
-                        new Group() { Id = 1, PropName = "Name2" },
-                        new Group() { Id = 2, PropName = "Name3" },
-                        new Group() { Id = 3, PropName = "Name4" }
+                        new Group() { Id = 1, PropName = "Url" },
+                        new Group() { Id = 3, PropName = "Genries" },
+                        new Group() { Id = 4, PropName = "Name" },
+                        new Group() { Id = 5, PropName = "Translation" },
+                        new Group() { Id = 6, PropName = "TumbnailUrl" }
                     }}
                 },
                 ListSiteUrl = @"http://grouple.ru/user/652147/bookmarks",
                 RecordRegex = @"<a href='.*' class='site-element .*' .*</a>"
             };
-            Serialize("mainConfig.xml", conf);
+            Serialize(path, conf);
         }
 
     }

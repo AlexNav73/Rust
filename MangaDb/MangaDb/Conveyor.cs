@@ -1,6 +1,8 @@
 ﻿using MangaDb.Configurations;
+using MangaDb.Contexts;
 using MangaDb.Helpers;
 using MangaDb.Modules;
+using MangaDb.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +24,13 @@ namespace MangaDb
 
         public async Task<object> Process()
         {
-            object context = GetMainConfig();
-//            object context = null; // GetMainConfig();
+            var conf = GetMainConfig();
+
+            object context = new ConveyorContext()
+            {
+                Config = conf,
+                Repository = new RecordRepository(conf.FilePath)
+            };
 
             foreach (IModule module in _modules)
             {
@@ -36,7 +43,7 @@ namespace MangaDb
 
         private MainConfig GetMainConfig()
         {
-            return ConfigurationHelper.Deserialize<MainConfig>(SettingKeys.MainConfigFileName);
+            return ConfigurationHelper.Deserialize<MainConfig>(SettingKeys.MainConfigPath);
         }
     }
 }

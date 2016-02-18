@@ -2,6 +2,7 @@
 using MangaDb.Entities;
 using MangaDb.Helpers;
 using MangaDb.Modules;
+using MangaDb.Modules.Implementations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,7 @@ namespace MangaDb
             var conveyer = new Conveyor()
                 .RegisterModule(new Downloader())
                 .RegisterModule(new Parser())
-                .RegisterModule(new NewRecordsFilter());
+                .RegisterModule(new UpdateDb());
 
             List<ListEntry> list = (List<ListEntry>)await conveyer.Process();
             foreach (ListEntry item in list)

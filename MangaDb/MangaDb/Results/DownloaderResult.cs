@@ -1,4 +1,5 @@
 ﻿using MangaDb.Configurations;
+using MangaDb.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace MangaDb.Results
     public class DownloaderResult
     {
         public string Page { get; set; }
-        public MainConfig Config { get; set; }
+        public ConveyorContext Context { get; set; }
     }
 }

@@ -39,6 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,10 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Configurations\MainConfig.cs" />
     <Compile Include="Configurations\SettingKeys.cs" />
     <Compile Include="Extensions\EnumerableEx.cs" />
-    <Compile Include="Modules\NewRecordsFilter.cs" />
+    <Compile Include="Modules\Implementations\UpdateDb.cs" />
+    <Compile Include="Repositories\Implementations\RecordRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Results\DownloaderResult.cs" />
     <Compile Include="Conveyor.cs" />
     <Compile Include="Entities\ListEntry.cs" />
@@ -67,10 +71,9 @@
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\CsvHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
-    <Compile Include="Modules\CsvStorage.cs" />
-    <Compile Include="Modules\Downloader.cs" />
+    <Compile Include="Modules\Implementations\Downloader.cs" />
     <Compile Include="Modules\IModule.cs" />
-    <Compile Include="Modules\Parser.cs" />
+    <Compile Include="Modules\Implementations\Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ParseResult.cs" />

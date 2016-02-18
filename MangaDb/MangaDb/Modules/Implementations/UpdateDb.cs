@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 using MangaDb.Entities;
 using MangaDb.Results;
 
-namespace MangaDb.Modules
+namespace MangaDb.Modules.Implementations
 {
-    public class NewRecordsFilter : IModule
+    public class UpdateDb : IModule
     {
         public async Task<object> Execute(object context)
         {
             var res = (ParseResult) context;
 
-            var path = res.DownloaderResult.Config.FilePath;
-            var helper = new Helpers.CsvHelper();
+            var path = res.DownloaderResult.Context.Config.FilePath;
+            var repo = res.DownloaderResult.Context.Repository;
 
             if (File.Exists(path))
             {
-                var records = helper.GetRecords<ListEntry>(path);
+                var records = repo.GetAll();
                 var newRecords = res.Entries.Where(r => !records.Contains(r)).ToList();
-                helper.AppendRecords(path, newRecords);
+                repo.AddRange(newRecords);
                 return res.Entries;
             }
-            helper.SaveRecords(path, res.Entries);
+            repo.SaveAll(res.Entries);
 
             return res.Entries;
         }

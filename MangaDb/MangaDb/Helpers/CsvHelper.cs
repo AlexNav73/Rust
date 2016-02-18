@@ -1,11 +1,12 @@
 ﻿using CsvHelper;
-using MangaDb.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MangaDb.Extensions;
 
 namespace MangaDb.Helpers
 {
@@ -19,7 +20,7 @@ namespace MangaDb.Helpers
             }
         }
 
-        public void SaveRecords<T>(string fileName, List<T> records)
+        public void SaveRecords<T>(string fileName, IEnumerable<T> records)
         {
             using (var writer = new CsvWriter(new StreamWriter(File.Open(fileName, FileMode.OpenOrCreate))))
             {
@@ -27,7 +28,7 @@ namespace MangaDb.Helpers
             }
         }
 
-        public void AppendRecords<T>(string fileName, List<T> records)
+        public void AppendRecords<T>(string fileName, IEnumerable<T> records)
         {
             using (var writer = new CsvWriter(new StreamWriter(File.Open(fileName, FileMode.Append))))
             {

@@ -11,7 +11,7 @@ using MangaDb.Configurations;
 using MangaDb.Results;
 using Group = System.Text.RegularExpressions.Group;
 
-namespace MangaDb.Modules
+namespace MangaDb.Modules.Implementations
 {
     public class Parser : IModule
     {
@@ -19,11 +19,11 @@ namespace MangaDb.Modules
         {
             var cont = (DownloaderResult)context;
 
-            Regex reg = new Regex(cont.Config.RecordRegex, RegexOptions.Compiled);
+            Regex reg = new Regex(cont.Context.Config.RecordRegex, RegexOptions.Compiled);
             List<ListEntry> result = new List<ListEntry>();
             foreach (Match match in reg.Matches(cont.Page))
             {
-                ParseRecord(cont.Config, match, result);
+                ParseRecord(cont.Context.Config, match, result);
             }
 
             return new ParseResult()
