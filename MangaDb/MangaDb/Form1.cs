@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,9 @@ namespace MangaDb
                 .RegisterModule(new UpdateDb())
                 .RegisterModule(new Format(new HtmlFormatter()));
 
-            webBrowser1.DocumentText = (string)await conveyer.Process();
+            string s = (string)await conveyer.Process();
+            webBrowser1.DocumentText = s;
+            File.AppendAllText("out.html", s);
         }
     }
 }

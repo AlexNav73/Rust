@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MangaDb.Configurations;
+using MangaDb.Attributes;
 
 namespace MangaDb.Entities
 {
     public class ListEntry
     {
         public string Url { get; set; }
-        public string Genries { get; set; }
-        public string Name { get; set; }
-        public string Translation { get; set; }
-        public string TumbnailUrl { get; set; }
+        [Include] public string Name { get; set; }
+        [Include] public string Genries { get; set; }
+        [Include] public string Translation { get; set; }
+        [Exclude] public string TumbnailUrl { get; set; }
 
         public ListEntry Init(Groups groups, List<string> values)
         {

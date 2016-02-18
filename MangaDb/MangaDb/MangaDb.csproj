@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ExcludeAttribute.cs" />
+    <Compile Include="Attributes\IncludeAttribute.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Configurations\MainConfig.cs" />
     <Compile Include="Configurations\SettingKeys.cs" />

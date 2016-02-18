@@ -1,9 +1,11 @@
-﻿using MangaDb.Entities;
+﻿using MangaDb.Attributes;
+using MangaDb.Entities;
 using MangaDb.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
@@ -44,38 +46,65 @@ namespace MangaDb.Formatters.Implementations
                 writer.RenderEndTag();
             });
 
-            items.ForEach(e =>
-            {
-                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
+            items.ForEach(e => ProcessFields(writer, e));
 
-                GetData(e).ForEach(el =>
-                {
-                    writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                    writer.Write(el.ToString());
-                    writer.RenderEndTag();
-                });
+            writer.RenderEndTag();
+        }
+
+        private void ProcessFields(HtmlTextWriter writer, ListEntry entry)
+        {
+            writer.RenderBeginTag(HtmlTextWriterTag.Tr);
+
+            ProcessCustomFields(writer, GetCustomData(entry));
+
+            GetData(entry).ForEach(el =>
+            {
+                writer.RenderBeginTag(HtmlTextWriterTag.Td);
+                writer.Write(el.ToString());
                 writer.RenderEndTag();
             });
 
             writer.RenderEndTag();
         }
 
-        public void RenderLink(HtmlTextWriter writer, IEnumerable<object> data)
+        public void RenderLink(HtmlTextWriter writer, string link)
         {
-            writer.AddAttribute(HtmlTextWriterAttribute.Href, (string)data.First());
+            writer.AddAttribute(HtmlTextWriterAttribute.Href, link);
             writer.RenderBeginTag(HtmlTextWriterTag.A);
-            writer.Write("Click");
+            writer.Write("Click     ");
+            writer.RenderEndTag();
+        }
+
+        private void ProcessCustomFields(HtmlTextWriter writer, IEnumerable<object> data)
+        {
+            object[] items = data.ToArray();
+
+            writer.RenderBeginTag(HtmlTextWriterTag.Td);
+            RenderLink(writer, (string)items[0]);
             writer.RenderEndTag();
         }
 
         private IEnumerable<string> GetHeaders(IEnumerable<ListEntry> items)
         {
-            return typeof(ListEntry).GetProperties().Select(p => p.Name);
+            return typeof(ListEntry).GetProperties()
+                .Where(p => p.GetCustomAttribute<ExcludeAttribute>() == null)
+                .Select(p => p.Name);
         }
 
         private IEnumerable<object> GetData(ListEntry item)
         {
-            return typeof(ListEntry).GetProperties().Select(p => p.GetValue(item));
+            return typeof(ListEntry).GetProperties()
+                .Where(p => p.GetCustomAttribute<IncludeAttribute>() != null)
+                .Select(p => p.GetValue(item));
+        }
+
+        private IEnumerable<object> GetCustomData(ListEntry item)
+        {
+            return typeof(ListEntry).GetProperties()
+                .Where(p => 
+                    p.GetCustomAttribute<IncludeAttribute>() == null &&
+                    p.GetCustomAttribute<ExcludeAttribute>() == null)
+                .Select(p => p.GetValue(item));
         }
     }
 }
