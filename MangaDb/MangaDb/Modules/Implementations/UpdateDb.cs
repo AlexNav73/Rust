@@ -21,7 +21,7 @@ namespace MangaDb.Modules.Implementations
             if (File.Exists(path))
             {
                 var records = repo.GetAll();
-                var newRecords = res.Entries.Where(r => !records.Contains(r)).ToList();
+                var newRecords = Enumerable.Except(res.Entries, records).ToList();
                 repo.AddRange(newRecords);
                 return res.Entries;
             }

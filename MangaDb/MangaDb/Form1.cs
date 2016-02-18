@@ -1,5 +1,6 @@
 ﻿using MangaDb.Configurations;
 using MangaDb.Entities;
+using MangaDb.Formatters.Implementations;
 using MangaDb.Helpers;
 using MangaDb.Modules;
 using MangaDb.Modules.Implementations;
@@ -22,18 +23,15 @@ namespace MangaDb
             InitializeComponent();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var conveyer = new Conveyor()
                 .RegisterModule(new Downloader())
                 .RegisterModule(new Parser())
-                .RegisterModule(new UpdateDb());
+                .RegisterModule(new UpdateDb())
+                .RegisterModule(new Format(new HtmlFormatter()));
 
-            List<ListEntry> list = (List<ListEntry>)await conveyer.Process();
-            foreach (ListEntry item in list)
-            {
-                listBox1.Items.Add(item.Name);
-            }
+            webBrowser1.DocumentText = (string)await conveyer.Process();
         }
     }
 }
