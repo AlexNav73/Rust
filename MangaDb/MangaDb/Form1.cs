@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -35,6 +36,20 @@ namespace MangaDb
             string s = (string)await conveyer.Process();
             webBrowser1.DocumentText = s;
             File.AppendAllText("out.html", s);
+        }
+
+        private static bool _willNavigate;
+
+        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (!_willNavigate)
+            {
+                _willNavigate = true;
+                return;
+            }
+
+            e.Cancel = true;
+            Process.Start(new ProcessStartInfo() { FileName = e.Url.ToString() });
         }
     }
 }
