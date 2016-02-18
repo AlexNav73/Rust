@@ -67,11 +67,20 @@ namespace MangaDb.Formatters.Implementations
             writer.RenderEndTag();
         }
 
-        public void RenderLink(HtmlTextWriter writer, string link)
+        private void RenderLink(HtmlTextWriter writer, string link)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Href, link);
             writer.RenderBeginTag(HtmlTextWriterTag.A);
             writer.Write("Click     ");
+            writer.RenderEndTag();
+        }
+
+        private void RenderImage(HtmlTextWriter writer, string link)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Src, link);
+            writer.AddAttribute(HtmlTextWriterAttribute.Width, "42");
+            writer.AddAttribute(HtmlTextWriterAttribute.Height, "42");
+            writer.RenderBeginTag(HtmlTextWriterTag.Img);
             writer.RenderEndTag();
         }
 
@@ -81,6 +90,10 @@ namespace MangaDb.Formatters.Implementations
 
             writer.RenderBeginTag(HtmlTextWriterTag.Td);
             RenderLink(writer, (string)items[0]);
+            writer.RenderEndTag();
+
+            writer.RenderBeginTag(HtmlTextWriterTag.Td);
+            RenderImage(writer, (string)items[1]);
             writer.RenderEndTag();
         }
 
