@@ -55,6 +55,7 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Configurations\MainConfig.cs" />
     <Compile Include="Configurations\SettingKeys.cs" />
+    <Compile Include="Contexts\ConveyorContext.cs" />
     <Compile Include="Extensions\EnumerableEx.cs" />
     <Compile Include="Modules\Implementations\UpdateDb.cs" />
     <Compile Include="Repositories\Implementations\RecordRepository.cs" />

@@ -16,5 +16,13 @@ namespace MangaDb.Configurations
                 return ConfigurationManager.AppSettings[SettingKeys.MainConfigPath];
             }
         }
+
+        public static string DbFileName
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings[SettingKeys.DbFileName];
+            }
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace MangaDb.Configurations
     public static class SettingKeys
     {
         public const string MainConfigPath = "MainConfigPath";
+        public const string DbFileName = "DbFileName";
     }
 }

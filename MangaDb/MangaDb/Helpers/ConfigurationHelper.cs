@@ -60,10 +60,11 @@ namespace MangaDb.Helpers
                         new Group() { Id = 4, PropName = "Name" },
                         new Group() { Id = 5, PropName = "Translation" },
                         new Group() { Id = 6, PropName = "TumbnailUrl" }
-                    }}
+                    } }
                 },
                 ListSiteUrl = @"http://grouple.ru/user/652147/bookmarks",
-                RecordRegex = @"<a href='.*' class='site-element .*' .*</a>"
+                RecordRegex = @"<a href='.*' class='site-element .*' .*</a>",
+                FilePath = Path.Combine(Environment.CurrentDirectory, AppSettings.DbFileName)
             };
             Serialize(path, conf);
         }
