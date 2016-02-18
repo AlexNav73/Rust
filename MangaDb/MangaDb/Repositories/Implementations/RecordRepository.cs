@@ -1,4 +1,5 @@
-﻿using MangaDb.Entities;
+﻿using MangaDb.Configurations;
+using MangaDb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace MangaDb.Repositories.Implementations
         private Helpers.CsvHelper _helper = new Helpers.CsvHelper();
         private string _dbFileName = null;
 
-        public RecordRepository(string path)
+        public void Init(MainConfig conf)
         {
-            _dbFileName = path;
+            _dbFileName = conf.FilePath;
         }
 
         public void AddNew(ListEntry item)

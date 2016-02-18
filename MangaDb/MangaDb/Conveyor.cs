@@ -26,11 +26,7 @@ namespace MangaDb
         {
             var conf = GetMainConfig();
 
-            object context = new ConveyorContext()
-            {
-                Config = conf,
-                Repository = new RecordRepository(conf.FilePath)
-            };
+            object context = new ConveyorContext() { Config = conf };
 
             foreach (IModule module in _modules)
             {

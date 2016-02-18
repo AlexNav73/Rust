@@ -12,6 +12,5 @@ namespace MangaDb.Contexts
     public class ConveyorContext
     {
         public MainConfig Config { get; set; }
-        public IRepository<ListEntry> Repository { get; set; }
     }
 }

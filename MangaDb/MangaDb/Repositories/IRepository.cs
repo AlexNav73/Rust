@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MangaDb.Configurations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace MangaDb.Repositories
 {
     public interface IRepository<T>
     {
+        void Init(MainConfig conf);
         List<T> GetAll();
         void SaveAll(IEnumerable<T> items);
         void Save();

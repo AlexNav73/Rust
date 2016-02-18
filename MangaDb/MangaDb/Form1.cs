@@ -4,6 +4,7 @@ using MangaDb.Formatters.Implementations;
 using MangaDb.Helpers;
 using MangaDb.Modules;
 using MangaDb.Modules.Implementations;
+using MangaDb.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,7 @@ namespace MangaDb
             var conveyer = new Conveyor()
                 .RegisterModule(new Downloader())
                 .RegisterModule(new Parser())
-                .RegisterModule(new UpdateDb())
+                .RegisterModule(new UpdateDb(new RecordRepository()))
                 .RegisterModule(new Format(new HtmlFormatter()));
 
             webBrowser1.DocumentText = (string)await conveyer.Process();

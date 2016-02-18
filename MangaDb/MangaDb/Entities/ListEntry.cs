@@ -14,7 +14,7 @@ namespace MangaDb.Entities
         [Include] public string Name { get; set; }
         [Exclude] public string Genries { get; set; }
         [Include] public string Translation { get; set; }
-         public string TumbnailUrl { get; set; }
+        public string TumbnailUrl { get; set; }
 
         public ListEntry Init(Groups groups, List<string> values)
         {
