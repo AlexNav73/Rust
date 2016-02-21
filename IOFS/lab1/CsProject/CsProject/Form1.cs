@@ -24,7 +24,8 @@ namespace CsProject
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.txt"))
             {
                 RustObject rs = new RustObject(file);
-                rs.Enumerate((x, y) => chart1.Series[0].Points.AddXY(x, y));
+                rs.Graph((x, y) => chart1.Series[0].Points.AddXY(x, y));
+//                rs.Enumerate((x, y) => chart1.Series[0].Points.AddXY(x, y));
 //                rs.CountConst(c => Console.WriteLine("C: {0}", c));
             }
         }

@@ -39,3 +39,12 @@ pub extern "C" fn CountConst(ptr: *mut WordCounter, f: fn(f64)) {
     }
 }
 
+#[no_mangle]
+pub extern "C" fn Graph(ptr: *mut WordCounter, f: fn(i32, i32)) {
+    let wc: &mut WordCounter = unsafe { &mut *ptr };
+    let v = wc.graph();
+
+    for (i, v) in v.iter().enumerate() {
+        f(i as i32, *v as i32);
+    }
+}

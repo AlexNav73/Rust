@@ -44,8 +44,8 @@ vmap [% [%m'gv``
 vmap ]% ]%m'gv``
 vmap a% [%v]%
 nmap e ea
-nnoremap gD :vsplit:call RacerGoToDefinition()
 nnoremap gd :call RacerGoToDefinition()
+nnoremap gD :vsplit:call RacerGoToDefinition()
 nmap gx <Plug>NetrwBrowseX
 nmap gtw :tabnew:e 
 nmap gtn :tabn
@@ -108,10 +108,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +92 src/lib.rs
+badd +1 src/lib.rs
 badd +40 src/abi/mod.rs
 badd +7 Cargo.toml
 badd +2 CsProject/CsProject/bin/x64/Debug/input.txt
+badd +2 src/help.rs
 argglobal
 silent! argdel *
 argadd src/lib.rs
@@ -245,11 +246,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 86 - ((44 * winheight(0) + 23) / 46)
+let s:l = 2 - ((1 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-86
+2
 normal! 0
 wincmd w
 argglobal
@@ -372,14 +373,13 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 19 - ((15 * winheight(0) + 23) / 46)
+let s:l = 49 - ((44 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
-normal! 05|
+49
+normal! 0
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
 exe 'vert 2resize ' . ((&columns * 95 + 95) / 191)
 tabedit CsProject/CsProject/bin/x64/Debug/input.txt

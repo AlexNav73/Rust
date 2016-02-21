@@ -15,6 +15,9 @@ namespace CsProject
 
         public delegate void CountConstCallBack(double c);
 
+        public delegate void GraphCallBack(int x, int y);
+
+
         [DllImport("External\\lab1.dll")]
         private static extern IntPtr CreateWordCounter(string s);
 
@@ -25,6 +28,8 @@ namespace CsProject
         private static extern void Enumerate(IntPtr ptr, MulticastDelegate predicate);
         [DllImport("External\\lab1.dll")]
         private static extern void CountConst(IntPtr ptr, MulticastDelegate predicate);
+        [DllImport("External\\lab1.dll")]
+        private static extern void Graph(IntPtr ptr, MulticastDelegate predicate);
 
         public RustObject(string path)
         {
@@ -33,6 +38,7 @@ namespace CsProject
 
         public void Enumerate(EnumerateCallBack predicate) { Enumerate(_ptr, predicate);}
         public void CountConst(CountConstCallBack predicate) { CountConst(_ptr, predicate);}
+        public void Graph(GraphCallBack predicate) { Graph(_ptr, predicate); }
 
         ~RustObject()
         {
