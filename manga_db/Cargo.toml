@@ -1,11 +1,6 @@
 [package]
-name = "lab2"
+name = "manga_db"
 version = "0.1.0"
 authors = ["AlexNav73 <fifthhorseman@mail.ru>"]
 
 [dependencies]
-libc = "*"
-walkdir = "*"
-
-[lib]
-crate-type = ["dylib"]

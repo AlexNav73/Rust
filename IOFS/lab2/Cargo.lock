@@ -1,5 +1,5 @@
 [root]
-name = "lab1"
+name = "lab2"
 version = "0.1.0"
 dependencies = [
  "libc 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",

@@ -1,50 +1,41 @@
 
 #![allow(non_snake_case)]
 
-use ::WordCounter;
+use ::WordSearcher;
 use ::libc::c_char;
 
-#[no_mangle]
-pub extern "C" fn CreateWordCounter(s: *const c_char) -> *mut WordCounter {
+fn convert_to_rust_str<'a>(s: *const c_char) -> &'a str {
     let c_str = unsafe {
         assert!(!s.is_null());
         ::std::ffi::CStr::from_ptr(s)
     };
-    let r_str = ::std::str::from_utf8(c_str.to_bytes()).unwrap();
-    Box::into_raw(Box::new(WordCounter::new(r_str)))
+    ::std::str::from_utf8(c_str.to_bytes()).unwrap()
+}
+
+fn convert_to_c_str(s: &str) -> *const c_char {
+    let r_str = ::std::ffi::CString::new(s).unwrap();
+    let ptr = r_str.as_ptr();
+    ::std::mem::forget(r_str);
+    ptr
 }
 
 #[no_mangle]
-pub extern "C" fn DeleteWordCounter(ptr: *mut WordCounter) {
-    let _: Box<WordCounter> = unsafe { Box::from_raw(ptr) };
+pub extern "C" fn CreateWordSearcher(s: *const c_char) -> *mut WordSearcher {
+    Box::into_raw(Box::new(WordSearcher::new(convert_to_rust_str(s))))
 }
 
 #[no_mangle]
-pub extern "C" fn Enumerate(ptr: *mut WordCounter, f: fn(u32, f64)) {
-    let wc: &mut WordCounter = unsafe { &mut *ptr };
-    let v: Vec<(&str, f64)> = wc.count_probability();
-
-    for (i, &(_, v)) in v.iter().enumerate() {
-        f((i + 1) as u32, v);
-    }
+pub extern "C" fn DeleteWordSearcher(ptr: *mut WordSearcher) {
+    let _: Box<WordSearcher> = unsafe { Box::from_raw(ptr) };
 }
 
 #[no_mangle]
-pub extern "C" fn CountConst(ptr: *mut WordCounter, f: fn(f64)) {
-    let wc: &mut WordCounter = unsafe { &mut *ptr };
-    let v: Vec<(&str, f64)> = wc.count_probability();
+pub extern "C" fn Search(ptr: *mut WordSearcher, string: *const c_char) -> *const c_char {
+    let ws: &mut WordSearcher = unsafe { &mut *ptr };
+    let string = convert_to_rust_str(string);
 
-    for (i, &(_, v)) in v.iter().enumerate() {
-        f((i + 1) as f64 * v);
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn Graph(ptr: *mut WordCounter, f: fn(i32, i32)) {
-    let wc: &mut WordCounter = unsafe { &mut *ptr };
-    let v = wc.graph();
-
-    for (i, v) in v.iter().enumerate() {
-        f(i as i32, *v as i32);
+    match ws.search_string(string) {
+        Some(ref s) => convert_to_c_str(s),
+        None => convert_to_c_str("No matches found")
     }
 }

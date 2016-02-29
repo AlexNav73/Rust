@@ -6,8 +6,8 @@ pub use walkdir::WalkDir;
 
 use std::collections::HashMap;
 
-//mod abi;
-//pub use abi::*;
+mod abi;
+pub use abi::*;
 
 mod help;
 use help::*;
@@ -58,7 +58,7 @@ mod tests {
     #[test]
     fn test_graph() {
 
-        println!("{:?}", WordSearcher::new(".\\texts").search_string("text1"));
+        println!("{:#?}", WordSearcher::new(".\\texts").search_string("text1"));
 
         assert!(false);
     }
