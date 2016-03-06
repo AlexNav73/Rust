@@ -44,8 +44,8 @@ vmap [% [%m'gv``
 vmap ]% ]%m'gv``
 vmap a% [%v]%
 nmap e ea
-nnoremap gD :vsplit:call RacerGoToDefinition()
 nnoremap gd :call RacerGoToDefinition()
+nnoremap gD :vsplit:call RacerGoToDefinition()
 nmap gx <Plug>NetrwBrowseX
 nmap gtw :tabnew:e 
 nmap gtn :tabn
@@ -110,9 +110,10 @@ endif
 set shortmess=aoO
 badd +8 src/main.rs
 badd +1 src/http/mod.rs
-badd +0 src/http/request.rs
-badd +0 src/http/response
-badd +0 src/http/response.rs
+badd +1 src/http/request.rs
+badd +1 src/http/response
+badd +1 src/http/response.rs
+badd +7 Cargo.toml
 argglobal
 silent! argdel *
 argadd src/main.rs
@@ -253,12 +254,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 11) / 23)
+let s:l = 24 - ((16 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 05|
+24
+normal! 056|
 wincmd w
 argglobal
 edit src/http/mod.rs
@@ -380,11 +381,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 9 - ((8 * winheight(0) + 11) / 22)
+let s:l = 1 - ((0 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-9
+1
 normal! 0
 wincmd w
 argglobal
@@ -507,13 +508,14 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 50 - ((45 * winheight(0) + 23) / 46)
+let s:l = 65 - ((16 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-50
-normal! 0
+65
+normal! 048|
 wincmd w
+3wincmd w
 exe '1resize ' . ((&lines * 23 + 24) / 49)
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 191)
 exe '2resize ' . ((&lines * 22 + 24) / 49)
@@ -643,12 +645,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 23) / 46)
+let s:l = 14 - ((13 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-16
-normal! 05|
+14
+normal! 08|
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

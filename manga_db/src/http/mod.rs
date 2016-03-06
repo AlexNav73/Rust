@@ -1,4 +1,7 @@
 
+extern crate regex;
+pub use self::regex::*;
+
 pub mod request;
 pub mod response;
 
