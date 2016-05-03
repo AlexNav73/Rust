@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CsProject
 {
@@ -21,12 +22,31 @@ namespace CsProject
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            int fileNumber = 0;
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.txt"))
             {
                 RustObject rs = new RustObject(file);
-                rs.Graph((x, y) => chart1.Series[0].Points.AddXY(x, y));
-//                rs.Enumerate((x, y) => chart1.Series[0].Points.AddXY(x, y));
-//                rs.CountConst(c => Console.WriteLine("C: {0}", c));
+                string fileName = Path.GetFileNameWithoutExtension(file);
+
+                chart1.Series.Add(new Series(fileName) { ChartType = SeriesChartType.Spline });
+                chart2.Series.Add(new Series(fileName) { ChartType = SeriesChartType.Spline });
+
+                rs.Graph((x, y) => chart1.Series[fileNumber].Points.AddXY(x, y));
+
+                rs.Enumerate((x, y) => chart2.Series[fileName].Points.AddXY(x, y));
+
+                double totalC = 0;
+                int count = 0;
+
+                rs.CountConst(c =>
+                {
+                    totalC += c;
+                    count++;
+                });
+
+                label1.Text += string.Format("{0}: {1}\n", fileName, totalC / count);
+                fileNumber += 1;
             }
         }
     }

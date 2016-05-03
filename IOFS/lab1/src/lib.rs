@@ -22,14 +22,27 @@ impl Drop for WordCounter {
     }
 }
 
+macro_rules! try_ext {
+    ($e:expr, $mess:expr) => {
+        match $e {
+            Ok(v) => v,
+            Err(e) => {
+                println!("{}: {}", $mess, e);
+                panic!(e);
+            }
+        }
+    }
+}
+
 impl WordCounter {
 
     pub fn new(path: &str) -> WordCounter {
-        let mut reader = BufReader::new(File::open(path).expect("Failed to open file"));
+        let mut reader = BufReader::new(
+            try_ext!(File::open(path), "File open paniced"));
+
         let mut text = String::new();
 
-        reader.read_to_string(&mut text)
-              .expect("Failed to read file");
+        try_ext!(reader.read_to_string(&mut text), "Read to string paniced");
 
         let (count, map) = parse_text(text);
 
@@ -87,16 +100,3 @@ impl WordCounter {
 }
 
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_graph() {
-        let mut w = WordCounter::new("input.txt");
-        w.graph();
-
-        assert!(false);
-    }
-
-}

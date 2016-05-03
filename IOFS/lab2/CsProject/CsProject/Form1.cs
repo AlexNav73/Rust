@@ -31,7 +31,12 @@ namespace CsProject
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
-                MessageBox.Show(_obj.Search(textBox1.Text), "Search results", MessageBoxButtons.OK);
+                string res = _obj.Search(textBox1.Text);
+
+                if (!string.IsNullOrEmpty(res))
+                    MessageBox.Show(res, "Search results", MessageBoxButtons.OK);
+                else
+                    MessageBox.Show("Can't found word", "Search results", MessageBoxButtons.OK);
             }
         }
     }
