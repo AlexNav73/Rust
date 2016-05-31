@@ -1,0 +1,8 @@
+[package]
+name = "tanks2D_online_server"
+version = "0.1.0"
+authors = ["AlexNav73"]
+
+[dependencies]
+rustc-serialize = "*"
+bincode = "*"

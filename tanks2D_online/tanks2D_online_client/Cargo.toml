@@ -1,0 +1,6 @@
+[package]
+name = "tanks2D_online_client"
+version = "0.1.0"
+authors = ["AlexNav73"]
+
+[dependencies]
