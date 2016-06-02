@@ -1,19 +1,24 @@
 
 extern crate rustc_serialize;
 extern crate bincode;
+extern crate tcore;
 
+pub mod configuration;
 mod net;
 mod data;
 
-use net::configuration::{ServerConfig, PATH_TO_CONFIG_FILE};
+use tcore::ConfCreator;
+use configuration::*;
 use net::UdpSocketWrapper;
-
 use data::SimpleTestObject;
+
+pub const PATH_TO_CONFIG_FILE: &'static str = "server_config.json";
 
 fn main() {
     
-    let config = ServerConfig::from_file(PATH_TO_CONFIG_FILE).unwrap();
-    println!("{:?}", config);
-    let socket = UdpSocketWrapper::bind(config);
+    let creator = ServerConfCreator::new(PATH_TO_CONFIG_FILE).unwrap();
+    let conf = creator.create().unwrap();
+    println!("{:?}", conf);
+    let socket = UdpSocketWrapper::bind(conf);
     
 }

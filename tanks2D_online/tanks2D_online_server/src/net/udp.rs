@@ -3,7 +3,7 @@ use std::vec::IntoIter;
 use std::io;
 use std::net::{UdpSocket, ToSocketAddrs, SocketAddr};
 
-use super::configuration::ServerConfig;
+use super::ServerConfig;
 
 impl ToSocketAddrs for ServerConfig {
     type Iter = IntoIter<SocketAddr>;
