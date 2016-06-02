@@ -2,11 +2,13 @@
 extern crate rustc_serialize;
 extern crate bincode;
 
-pub mod configuration;
 mod net;
+mod data;
 
-use configuration::{ServerConfig, PATH_TO_CONFIG_FILE};
+use net::configuration::{ServerConfig, PATH_TO_CONFIG_FILE};
 use net::UdpSocketWrapper;
+
+use data::SimpleTestObject;
 
 fn main() {
     

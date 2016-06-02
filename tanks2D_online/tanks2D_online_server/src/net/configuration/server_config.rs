@@ -5,7 +5,7 @@ use std::io::Read;
 use std::path::Path;
 use std::result;
 
-use super::super::rustc_serialize::json;
+use super::rs::json;
 
 #[derive(Debug, RustcDecodable, RustcEncodable)]
 pub struct ServerConfig {
