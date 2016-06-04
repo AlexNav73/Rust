@@ -5,7 +5,7 @@ use std::net::{UdpSocket, ToSocketAddrs, SocketAddr};
 
 use super::ServerConfig;
 
-impl ToSocketAddrs for ServerConfig {
+impl<'a> ToSocketAddrs for ServerConfig<'a> {
     type Iter = IntoIter<SocketAddr>;
     
     #[inline]
