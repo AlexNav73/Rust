@@ -6,6 +6,15 @@ pub struct SimpleTestObject {
     b: u16
 }
 
+impl SimpleTestObject {
+    pub fn new() -> SimpleTestObject {
+        SimpleTestObject {
+            a: 2132132,
+            b: 256
+        }
+    }
+}
+
 impl rs::Encodable for SimpleTestObject {
     fn encode<S: rs::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
         try!(s.emit_i32(self.a));

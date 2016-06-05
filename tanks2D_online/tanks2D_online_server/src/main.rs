@@ -20,4 +20,20 @@ fn main() {
     println!("{:?}", conf);
     /*let socket = UdpSocketWrapper::bind(conf);*/
     
+    let p = data::Protocol::Object(SimpleTestObject::new());
+    
+    let v = bincode::rustc_serialize::encode(&p, bincode::SizeLimit::Infinite);
+    println!("{:?}", v);
+    
+    let mut file = std::fs::File::open("104.jpg").unwrap();
+    let mut buf = Vec::new();
+    
+    use std::io::Read;
+    file.read_to_end(&mut buf);
+    
+    let ps: Vec<data::Protocol<i32>> = data::Protocol::split(&buf);
+    println!("{:?}", ps);
+    let file: data::File = ps.into();
+    file.save("test.jpg");    
+    
 }
