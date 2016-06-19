@@ -18,9 +18,6 @@ pub struct ServerConfig<'a> {
 impl<'a> ServerConfig<'a> {
     pub fn addr(&self) -> &str { self.address.as_ref() }
     pub fn port(&self) -> u16 { self.port }
-    
-    fn set_add<T: Into<Cow<'a, str>>>(&mut self, addr: T) { self.address = addr.into(); }
-    fn set_port(&mut self, port: u16) { self.port = port; }
 }
 
 pub type Result<T> = result::Result<T, ServerConfigurationError>;
@@ -45,12 +42,12 @@ impl<'a, 'b> ServerConfBuilder<'a, 'b> {
     }
     
     pub fn addr<S: Into<Cow<'b, str>>>(&mut self, addr: S) -> &mut Self {
-        self.conf.set_add(addr);
+        self.conf.address = addr.into();
         self
     }
     
     pub fn port(&mut self, port: u16) -> &mut Self {
-        self.conf.set_port(port);
+        self.conf.port = port;
         self
     }
     

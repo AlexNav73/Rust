@@ -1,5 +1,5 @@
 
-use super::rs;
+use super::{ rs, decode, Handler, ToTypeId };
 
 pub struct SimpleTestObject {
     a: i32,
@@ -30,3 +30,19 @@ impl rs::Decodable for SimpleTestObject {
         })
     }
 }
+
+impl ToTypeId for SimpleTestObject {
+    fn get_type_id() -> u8 {
+        1
+    }
+}
+
+pub struct SimpleTestObjectHandler;
+
+impl Handler for SimpleTestObjectHandler {
+    fn handle(&self, data: &[u8]) {
+        let _obj: SimpleTestObject = decode(data).unwrap();
+        println!("SimpleTestObject");
+    }
+}
+

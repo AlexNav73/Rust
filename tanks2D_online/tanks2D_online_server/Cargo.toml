@@ -7,6 +7,3 @@ authors = ["AlexNav73"]
 rustc-serialize = "*"
 bincode = "*"
 
-[lib]
-name = "tcore"
-path = "../tanks2D_online_core/src/lib.rs"

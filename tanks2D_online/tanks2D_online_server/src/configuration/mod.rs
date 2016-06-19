@@ -1,5 +1,5 @@
 
-pub use super::rustc_serialize as rs;
+pub use rustc_serialize as rs;
 
 mod server_config;
 

@@ -3,6 +3,10 @@ use std::vec::IntoIter;
 use std::io;
 use std::net::{UdpSocket, ToSocketAddrs, SocketAddr};
 
+use super::bincode::rustc_serialize as rs;
+use super::bincode::SizeLimit;
+
+use super::data::Protocol;
 use super::ServerConfig;
 
 impl<'a> ToSocketAddrs for ServerConfig<'a> {
@@ -27,4 +31,10 @@ impl UdpSocketWrapper {
             socket: try!(UdpSocket::bind(addr)) 
         })
     }
+
+    pub fn send(protocol: Protocol) {
+        println!("{:?}", protocol);
+        let _ = rs::encode(&protocol, SizeLimit::Infinite);
+    }
+    
 }
