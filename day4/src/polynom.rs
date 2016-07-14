@@ -1,7 +1,7 @@
 
 use std::fmt;
 use std::fmt::{Debug, Formatter};
-use std::ops::{ Add };
+use std::ops::{ Add, Sub };
 
 #[derive(PartialEq, Eq)]
 struct Element(i64);
@@ -17,6 +17,14 @@ impl<'a> Add for &'a Element {
 
     fn add(self, rhs: &'a Element) -> Element {
         Element(self.0 + rhs.0)
+    }
+}
+
+impl<'a> Sub for &'a Element {
+    type Output = Element;
+
+    fn sub(self, rhs: &'a Element) -> Element {
+        Element(self.0 - rhs.0)
     }
 }
 
@@ -44,7 +52,7 @@ impl ToString for Polynom {
         self.0.iter()
             .enumerate()
             .map(|(idx, ref x)| format!("{:?}^{}", x, idx))
-            .collect::<Vec<String>>()
+            .collect::<Vec<_>>()
             .as_slice()
             .join(" + ")
     }
@@ -59,12 +67,12 @@ impl Add for Polynom {
     }
 }
 
-impl<'a> Add for &'a [Element] {
+impl Sub for Polynom {
     type Output = Polynom;
 
-    fn add(self, me: &'a [Element]) -> Polynom {
-        let mut iter = me.iter();
-        Polynom::from_iter(self.0.iter().map(|e| e + iter.next().unwrap()))
+    fn sub(self, me: Polynom) -> Polynom {
+        let mut iter = me.0.iter();
+        Polynom::from_iter(self.0.iter().map(|e| e - iter.next().unwrap()))
     }
 }
 
@@ -91,6 +99,14 @@ mod tests {
         let pol2 = Polynom::from_int_array(&[1, 2, 3]);
 
         assert_eq!((pol1 + pol2).to_string(), "2*x^0 + 4*x^1 + 6*x^2");
+    }
+
+    #[test]
+    fn test_polynom_sum() {
+        let pol1 = Polynom::from_int_array(&[1, 2, 3]);
+        let pol2 = Polynom::from_int_array(&[1, 2, 3]);
+
+        assert_eq!((pol1 - pol2).to_string(), "0*x^0 + 0*x^1 + 0*x^2");
     }
 
 }
